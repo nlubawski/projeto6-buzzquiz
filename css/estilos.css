@@ -1,0 +1,22 @@
+
+*{
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+header{
+    height: 69px;
+    width: 100%;
+    background-color: #EC362D;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+    font-size: 37px;
+    font-weight: 700;
+    position: fixed;
+    top: 0;
+    right: 0;
+}
