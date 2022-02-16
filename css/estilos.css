@@ -22,8 +22,43 @@ header{
     z-index: 4;
 }
 
+.ir-para-criacao{
+    width: 340px;
+    height: 181px;
+    margin-left: 18px;
+    margin-right: 18px;
+    margin-top: 100px;
+    margin-bottom: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.ir-para-criacao p{
+    font-weight: 400;
+    font-size: 20px;
+    color: #B9B9B9;
+}
+
+.ir-para-criacao span{
+    margin-top: 7px;
+    margin-left: 45px;
+    margin-right: 45px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.ir-para-criacao button{
+    width: 152px;
+    height: 40px;
+    border-radius: 50px;
+    color: #EC362D;
+    border: 1px dashed #EC362D;
+}
+
 .primeira-tela{
-    margin-top: 316px;
+    margin-top: 38px;
 }
 
 .primeira-tela p{
@@ -31,6 +66,24 @@ header{
     font-size: 20px;
     margin-bottom: 14px;
     margin-left: 18px;
+}
+
+.seus-quizzes{
+    font-weight: 700;
+    font-size: 20px;
+    margin-top: 107px;
+    margin-bottom: 16px;
+    margin-left: 15px;
+    margin-right: 19px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.seus-quizzes ion-icon{
+    width: 31px;
+    height: 31px;
+    color: #EC362D;
 }
 
 .primeira-tela ul{
