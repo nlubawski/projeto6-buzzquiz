@@ -1,3 +1,11 @@
+let criarTitulo = null
+let criarImagem = null
+let criarQuantidadeQuestoes = null
+let criarQuantidadeNiveis = null
+let criarQuestions = []
+
+
+
 function obterQuizzes(){
     const promisse = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes')
     promisse.then(renderizaQuizzes)
@@ -55,17 +63,36 @@ function criarQuiz(){
 
 }
 
+//em construcao
+// function mudaCorpoDaPergunta(div){
+//     console.log('div:::', div)
+//     div.classList.toggle('esconder')
+//     const pai = div.parentNode
+//     console.log('pai', pai)
+//     pai.querySelector('.pergunta-corpo').classList.toggle('esconder')
+    
+// }
+
 function prosseguirCriarPerguntas(event){
     event.preventDefault()
-    console.log('event' )
+
+    criarTitulo = document.querySelector('.titulo-quiz').value
+    criarImagem = document.querySelector('.img-quiz').value
+    criarQuantidadeQuestoes = document.querySelector('.quantidade-de-perguntas-quiz').value
+    criarQuantidadeNiveis = document.querySelector('.quantidade-de-niveis-quiz').value 
 
     document.querySelector('.terceira-tela__primeira').classList.add('esconder')
     document.querySelector('.terceira-tela__segunda').classList.remove('esconder')
 }
 
-function mudaCorpoDaPergunta(pergunta_n){
-    console.log(pergunta_n)
-}
+//em construcao
+// function prosseguirCriarNiveis(event){
+//     event.preventDefault()
+
+//     document.querySelector('.terceira-tela__segunda').classList.add('esconder')
+//     document.querySelector('.terceira-tela__terceira').classList.remove('esconder')
+// }
+
 
 
 obterQuizzes()

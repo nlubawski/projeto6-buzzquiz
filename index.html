@@ -37,15 +37,15 @@
                 <span class="terceira__tela__topo">
                     <p>Comece pelo começo</p>
                 </span>
-                <form onsubmit="prosseguirCriarPerguntas(event)" >
+                <form onsubmit="prosseguirCriarPerguntas(event)">
                     <div class="informacoes-quiz">
                         <input type="text" class="titulo-quiz" placeholder="Título do seu quizz" minlength="20"
                             maxlength="65" required="required">
-                        <input type="url" required="required" class="img-quiz" placeholder="URL da imagem do seu quizz" >
+                        <input type="url" required="required" class="img-quiz" placeholder="URL da imagem do seu quizz">
                         <input type="number" min="3" required="required" class="quantidade-de-perguntas-quiz"
-                            placeholder="Quantidade de perguntas do quizz" >
-                        <input type="number" min="2" required="required" class="quantidade-de-niveis-quiz" placeholder="Quantidade de níveis do quizz"
-                            >
+                            placeholder="Quantidade de perguntas do quizz">
+                        <input type="number" min="2" required="required" class="quantidade-de-niveis-quiz"
+                            placeholder="Quantidade de níveis do quizz">
                         <button type="submit">Prosseguir pra criar perguntas</button>
                     </div>
                 </form>
@@ -55,87 +55,111 @@
                     <p>Crie suas perguntas</p>
                 </span>
                 <div class="perguntas-quiz">
-                    <div class="pergunta-1" onclick="mudaCorpoDaPergunta(this)">
-                        <span class="pergunta-topo">
+                    <div class="pergunta-1">
+                        <span class="pergunta-topo" onclick="mudaCorpoDaPergunta(this)">
                             <p>Pergunta 1</p>
                             <ion-icon name="create-outline"></ion-icon>
                         </span>
-                        <div class="pergunta-corpo esconder">
-                            <p>Pergunta 1</p>
-                            <input type="text" class="pergunta" placeholder="Texto da pergunta">
-                            <input type="text" class="pergunta-fundo" placeholder="Cor de fundo da pergunta">
+                        <form onsubmit="prosseguirCriarNiveis(event)">
+                            <div class="pergunta-corpo esconder">
+                                <p>Pergunta 1</p>
+                                <input type="text" required="required" minlength="20" class="pergunta"
+                                    placeholder="Texto da pergunta">
+                                <input type="text" required="required" class="pergunta-fundo"
+                                    placeholder="Cor de fundo da pergunta">
 
-                            <p>Resposta correta</p>
-                            <input type="text" class="resposta-correta" placeholder="Resposta correta">
-                            <input type="text" class="resposta-correta-img" placeholder="URL da imagem">
+                                <p>Resposta correta</p>
+                                <input type="text" required="required" class="resposta-correta"
+                                    placeholder="Resposta correta">
+                                <input type="url" required="required" class="resposta-correta-img"
+                                    placeholder="URL da imagem">
 
-                            <p>Respostas incorretas</p>
-                            <input type="text" class="resposta-errada" placeholder="Resposta incorreta 1">
-                            <input type="text" class="resposta-errada-img" placeholder="URL da imagem 1">
+                                <p>Respostas incorretas</p>
+                                <input type="text" required="required" class="resposta-errada"
+                                    placeholder="Resposta incorreta 1">
+                                <input type="url" required="required" class="resposta-errada-img"
+                                    placeholder="URL da imagem 1">
 
-                            <input type="text" class="resposta-errada" placeholder="Resposta incorreta 2">
-                            <input type="text" class="resposta-errada-img" placeholder="URL da imagem 2">
+                                <input type="text" class="resposta-errada" placeholder="Resposta incorreta 2">
+                                <input type="url" class="resposta-errada-img" placeholder="URL da imagem 2">
 
-                            <input type="text" class="resposta-errada" placeholder="Resposta incorreta 3">
-                            <input type="text" class="resposta-errada-img" placeholder="URL da imagem 3">
-                        </div>
+                                <input type="text" class="resposta-errada" placeholder="Resposta incorreta 3">
+                                <input type="url" class="resposta-errada-img" placeholder="URL da imagem 3">
+                            </div>
                     </div>
-                    <div class="pergunta-2" onclick="mudaCorpoDaPergunta(this)">
-                        <div class="pergunta-topo">
+                    <div class="pergunta-2">
+                        <div class="pergunta-topo" onclick="mudaCorpoDaPergunta(this)">
                             <p>Pergunta 2</p>
                             <ion-icon name="create-outline"></ion-icon>
                         </div>
-                        <div class="pergunta-corpo esconder ">
-                            <p>Pergunta 2</p>
-                            <input type="text" class="pergunta" placeholder="Texto da pergunta">
-                            <input type="text" class="pergunta-fundo" placeholder="Cor de fundo da pergunta">
-
-                            <p>Resposta correta</p>
-                            <input type="text" class="resposta-correta" placeholder="Resposta correta">
-                            <input type="text" class="resposta-correta-img" placeholder="URL da imagem">
-
-                            <p>Respostas incorretas</p>
-                            <input type="text" class="resposta-errada" placeholder="Resposta incorreta 1">
-                            <input type="text" class="resposta-errada-img" placeholder="URL da imagem 1">
-
-                            <input type="text" class="resposta-errada" placeholder="Resposta incorreta 2">
-                            <input type="text" class="resposta-errada-img" placeholder="URL da imagem 2">
-
-                            <input type="text" class="resposta-errada" placeholder="Resposta incorreta 3">
-                            <input type="text" class="resposta-errada-img" placeholder="URL da imagem 3">
-                        </div>
-                    </div>
-                    <div class="pergunta-3 " onclick="mudaCorpoDaPergunta(this)">
-                        <div class="pergunta-topo">
-                            <p>Pergunta 3</p>
-                            <ion-icon name="create-outline"></ion-icon>
-                        </div>
                         <div class="pergunta-corpo esconder">
-                            <p>Pergunta 3</p>
-                            <input type="text" class="pergunta" placeholder="Texto da pergunta">
-                            <input type="text" class="pergunta-fundo" placeholder="Cor de fundo da pergunta">
+                            <p>Pergunta 2</p>
+                            <input type="text" required="required" minlength="20" class="pergunta"
+                                placeholder="Texto da pergunta">
+                            <input type="text" required="required" class="pergunta-fundo"
+                                placeholder="Cor de fundo da pergunta">
 
                             <p>Resposta correta</p>
-                            <input type="text" class="resposta-correta" placeholder="Resposta correta">
-                            <input type="text" class="resposta-correta-img" placeholder="URL da imagem">
+                            <input type="text" required="required" class="resposta-correta"
+                                placeholder="Resposta correta">
+                            <input type="url" required="required" class="resposta-correta-img"
+                                placeholder="URL da imagem">
 
                             <p>Respostas incorretas</p>
-                            <input type="text" class="resposta-errada" placeholder="Resposta incorreta 1">
-                            <input type="text" class="resposta-errada-img" placeholder="URL da imagem 1">
+                            <input type="text" required="required" class="resposta-errada"
+                                placeholder="Resposta incorreta 1">
+                            <input type="url" required="required" class="resposta-errada-img"
+                                placeholder="URL da imagem 1">
 
                             <input type="text" class="resposta-errada" placeholder="Resposta incorreta 2">
-                            <input type="text" class="resposta-errada-img" placeholder="URL da imagem 2">
+                            <input type="url" class="resposta-errada-img" placeholder="URL da imagem 2">
 
                             <input type="text" class="resposta-errada" placeholder="Resposta incorreta 3">
-                            <input type="text" class="resposta-errada-img" placeholder="URL da imagem 3">
+                            <input type="url" class="resposta-errada-img" placeholder="URL da imagem 3">
                         </div>
+                        </div>
+                        <div class="pergunta-3" onclick="mudaCorpoDaPergunta(this)">
+                            <div class="pergunta-topo estilos">
+                                <p>Pergunta 3</p>
+                                <ion-icon name="create-outline"></ion-icon>
+                            </div>
+                            <div class="pergunta-corpo esconder">
+                                <p>Pergunta 3</p>
+                                <input type="text" required="required" minlength="20" class="pergunta"
+                                    placeholder="Texto da pergunta">
+                                <input type="text" required="required" class="pergunta-fundo"
+                                    placeholder="Cor de fundo da pergunta">
+
+                                <p>Resposta correta</p>
+                                <input type="text" required="required" class="resposta-correta"
+                                    placeholder="Resposta correta">
+                                <input type="url" required="required" class="resposta-correta-img"
+                                    placeholder="URL da imagem">
+
+                                <p>Respostas incorretas</p>
+                                <input type="text" required="required" class="resposta-errada"
+                                    placeholder="Resposta incorreta 1">
+                                <input type="url" required="required" class="resposta-errada-img"
+                                    placeholder="URL da imagem 1">
+
+                                <input type="text" class="resposta-errada" placeholder="Resposta incorreta 2">
+                                <input type="url" class="resposta-errada-img" placeholder="URL da imagem 2">
+
+                                <input type="text" class="resposta-errada" placeholder="Resposta incorreta 3">
+                                <input type="url" class="resposta-errada-img" placeholder="URL da imagem 3">
+                            </div>
+                        </div>
+                        <div class="pergunta-botao">
+                            <button>Prosseguir pra criar níveis</button>
+                        </div>
+                        </form>
                     </div>
                 </div>
-                <div class="pergunta-botao">
-                    <button>Prosseguir pra criar níveis</button>
+
+                <div class="terceira-tela__terceira esconder">
+
                 </div>
-            </div>
-            </div>
+
         </section>
     </main>
 </body>
