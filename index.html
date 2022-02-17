@@ -33,20 +33,24 @@
         <section class="segunda-tela">
         </section>
         <section class="terceira-tela">
-            <div class="terceira-tela__primeira esconder">
-                <span>
+            <div class="terceira-tela__primeira">
+                <span class="terceira__tela__topo">
                     <p>Comece pelo começo</p>
                 </span>
-                <div class="informacoes-quiz">
-                    <input type="text" class="titulo-quiz" placeholder="Título do seu quizz">
-                    <input type="text" class="img-quiz" placeholder="URL da imagem do seu quizz">
-                    <input type="text" class="quantidade-de-perguntas-quiz"
-                        placeholder="Quantidade de perguntas do quizz">
-                    <input type="text" class="quantidade-de-niveis-quiz" placeholder="Quantidade de níveis do quizz">
-                    <button>Prosseguir pra criar perguntas</button>
-                </div>
+                <form onsubmit="prosseguirCriarPerguntas(event)" >
+                    <div class="informacoes-quiz">
+                        <input type="text" class="titulo-quiz" placeholder="Título do seu quizz" minlength="20"
+                            maxlength="65" required="required">
+                        <input type="url" required="required" class="img-quiz" placeholder="URL da imagem do seu quizz" >
+                        <input type="number" min="3" required="required" class="quantidade-de-perguntas-quiz"
+                            placeholder="Quantidade de perguntas do quizz" >
+                        <input type="number" min="2" required="required" class="quantidade-de-niveis-quiz" placeholder="Quantidade de níveis do quizz"
+                            >
+                        <button type="submit">Prosseguir pra criar perguntas</button>
+                    </div>
+                </form>
             </div>
-            <div class="terceira-tela__segunda">
+            <div class="terceira-tela__segunda esconder">
                 <span>
                     <p>Crie suas perguntas</p>
                 </span>

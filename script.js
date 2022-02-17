@@ -55,8 +55,17 @@ function criarQuiz(){
 
 }
 
+function prosseguirCriarPerguntas(event){
+    event.preventDefault()
+    console.log('event' )
+
+    document.querySelector('.terceira-tela__primeira').classList.add('esconder')
+    document.querySelector('.terceira-tela__segunda').classList.remove('esconder')
+}
+
 function mudaCorpoDaPergunta(pergunta_n){
     console.log(pergunta_n)
 }
+
 
 obterQuizzes()

@@ -144,7 +144,10 @@ header{
     margin-left: 18px;
 }
 
-.terceira-tela span{
+.terceira__tela__topo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .cabecalho-quiz{
