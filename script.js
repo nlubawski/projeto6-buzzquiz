@@ -9,6 +9,7 @@ const quizCriado = {
     questions : [],
     levels: []
 }
+let perguntas = null
 
 
 
@@ -104,7 +105,7 @@ function renderizaTelaDeCriarPerguntas(quantidadeQuestoes){
     //telaPerguntas.innerHTML += `<form onsubmit="prosseguirCriarNiveis(event)">`
     for (let i = 1; i <= quantidadeQuestoes; i++){
         telaPerguntas.innerHTML += `
-        <div class="pergunta-${i}">
+        <div class="pergunta-${i} perguntas">
         <span class="pergunta-topo " onclick="mudaCorpoDaPergunta(this)">
             <p>Pergunta ${i}</p>
             <ion-icon name="create-outline"></ion-icon>
@@ -123,16 +124,16 @@ function renderizaTelaDeCriarPerguntas(quantidadeQuestoes){
                     placeholder="URL da imagem">
 
                 <p>Respostas incorretas</p>
-                <input type="text" required="required" class="resposta-errada"
+                <input type="text" required="required" class="resposta-errada1"
                     placeholder="Resposta incorreta 1">
-                <input type="url" required="required" class="resposta-errada-img"
+                <input type="url" required="required" class="resposta-errada1-img"
                     placeholder="URL da imagem 1">
 
-                <input type="text" class="resposta-errada" placeholder="Resposta incorreta 2">
-                <input type="url" class="resposta-errada-img" placeholder="URL da imagem 2">
+                <input type="text" class="resposta-errada2" placeholder="Resposta incorreta 2">
+                <input type="url" class="resposta-errada2-img" placeholder="URL da imagem 2">
 
-                <input type="text" class="resposta-errada" placeholder="Resposta incorreta 3">
-                <input type="url" class="resposta-errada-img" placeholder="URL da imagem 3">
+                <input type="text" class="resposta-errada3" placeholder="Resposta incorreta 3">
+                <input type="url" class="resposta-errada3-img" placeholder="URL da imagem 3">
             </div>
         </div>
     `
@@ -151,6 +152,7 @@ function prosseguirCriarNiveis(event){
     document.querySelector('.terceira-tela__segunda').classList.add('esconder')
     document.querySelector('.terceira-tela__terceira').classList.remove('esconder')
 
+    adicionarPerguntasCriadas()
     renderizarTelaDeCriarNiveis()
 }
 
@@ -202,6 +204,55 @@ function prosseguirFinalizarQuiz(event){
     document.querySelector('.terceira-tela__quarta').classList.remove('esconder')
 
     enviarQuizAoServidor()
+}
+
+function adicionarPerguntasCriadas(){
+    perguntas = document.querySelectorAll('.perguntas')
+    console.log(perguntas)
+
+    for(let i = 0; i < perguntas.length ;i++){
+
+        let texto = perguntas[0].querySelector('.pergunta').value
+        let cor = perguntas[0].querySelector('.pergunta-fundo').value
+        
+        let respostaCorreta = perguntas[0].querySelector('.resposta-correta').value
+        let respostaCorretaImagem = perguntas[0].querySelector('.resposta-correta-img').value
+
+        let respostaErrada1 = perguntas[0].querySelector('.resposta-errada1').value
+        let respostaErrada1Imagem = perguntas[0].querySelector('.resposta-errada1-img').value
+        
+        let respostaErrada2 = perguntas[0].querySelector('.resposta-errada2').value
+        let respostaErrada2Imagem = perguntas[0].querySelector('.resposta-errada2-img').value
+
+        let respostaErrada3 = perguntas[0].querySelector('.resposta-errada3').value
+        let respostaErrada3Imagem = perguntas[0].querySelector('.resposta-errada3-img').value
+
+        let questoes = {
+            title: respostaCorreta,
+            color: cor,
+            questions: [{
+            text: respostaCorreta,
+            image: respostaCorretaImagem,
+            isCorrectAnswer: true,
+        }, {
+            text: respostaErrada1,
+            image: respostaErrada1Imagem,
+            isCorrectAnswer: false,
+        }, {
+            text: respostaErrada2,
+            image: respostaErrada2Imagem,
+            isCorrectAnswer: false,
+        }, {
+            text: respostaErrada3,
+            image: respostaErrada3Imagem,
+            isCorrectAnswer: false,
+        } ]
+        }
+
+        quizCriado.questions.push(questoes)
+        console.log('meu deus ', quizCriado.questions)
+        
+    }
 }
 
 
