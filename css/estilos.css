@@ -142,6 +142,9 @@ header{
     font-size: 20px;
     margin-bottom: 14px;
     margin-left: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .terceira__tela__topo{
@@ -190,7 +193,7 @@ header{
     border-radius: 5px;
 }
 
-.terceira-tela__primeira button, .terceira-tela__segunda button{
+.terceira-tela__primeira button, .terceira-tela__segunda button, .terceira-tela__terceira button{
     width: 325px;
     height: 54px;
     border-radius: 15px;
@@ -199,7 +202,7 @@ header{
     color: #FFFFFF;
 }
 
-.pergunta-corpo{
+.pergunta-corpo, .nivel-corpo{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -207,12 +210,12 @@ header{
     margin-top: 29px;
 }
 
-.pergunta-corpo p{
+.pergunta-corpo p, .nivel-corpo p{
     width: 360px;
     margin-top: 28px;
 }
 
-.perguntas-quiz .pergunta-topo{
+.perguntas-quiz .pergunta-topo, .niveis-quiz .nivel-topo{
     display: flex;
     justify-content: space-between;
     margin: 0px 17px;
@@ -224,7 +227,7 @@ header{
     margin-top: -10px;
 }
 
-.pergunta-botao{
+.pergunta-botao, .nivel-botao{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -283,11 +286,11 @@ header{
         }
     
     .seus-quizzes p{
-            margin-right: 10px;
+        margin-right: 10px;
     }
 
     .seus-quizzes ion-icon{
-            margin-top: -10px;
+        margin-top: -10px;
     }
 }
 

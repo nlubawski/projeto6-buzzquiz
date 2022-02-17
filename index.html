@@ -33,7 +33,7 @@
         <section class="segunda-tela">
         </section>
         <section class="terceira-tela">
-            <div class="terceira-tela__primeira">
+            <div class="terceira-tela__primeira ">
                 <span class="terceira__tela__topo">
                     <p>Comece pelo começo</p>
                 </span>
@@ -55,13 +55,20 @@
                     <p>Crie suas perguntas</p>
                 </span>
                 <form onsubmit="prosseguirCriarNiveis(event)">
-                <div class="perguntas-quiz">
-                </div>
+                    <div class="perguntas-quiz">
+                    </div>
                 </form>
             </div>
-
             <div class="terceira-tela__terceira esconder">
-
+                <span>
+                    <p>Agora decida os níveis!</p>
+                </span>
+                <form onsubmit="prosseguirSeuQuizEstaPronto(event)">
+                    <div class="niveis-quiz">
+                    </div>
+                </form>
+            </div>
+            <div class="terceira-tela__quarta esconder">
             </div>
 
         </section>

@@ -3,6 +3,12 @@ let criarImagem = null
 let criarQuantidadeQuestoes = null
 let criarQuantidadeNiveis = null
 let criarQuestions = []
+const quizCriado = {
+    title: null,
+    image: null,
+    questions : [],
+    levels: []
+}
 
 
 
@@ -81,17 +87,22 @@ function prosseguirCriarPerguntas(event){
     criarQuantidadeQuestoes = document.querySelector('.quantidade-de-perguntas-quiz').value
     criarQuantidadeNiveis = document.querySelector('.quantidade-de-niveis-quiz').value 
 
+    quizCriado.title = criarTitulo
+    quizCriado.image = criarImagem
+    console.log('titulo, imagem :', quizCriado.title, quizCriado.image)
+
+
     document.querySelector('.terceira-tela__primeira').classList.add('esconder')
     document.querySelector('.terceira-tela__segunda').classList.remove('esconder')
 
-    renderizaTelaDeCriarPerguntas(criarQuantidadeQuestoes)
+    renderizaTelaDeCriarPerguntas(criarQuantidadeQuestoes, criarQuantidadeNiveis)
 }
 
-function renderizaTelaDeCriarPerguntas(quantidade){
+function renderizaTelaDeCriarPerguntas(quantidadeQuestoes){
     
     const telaPerguntas = document.querySelector('.perguntas-quiz')
     //telaPerguntas.innerHTML += `<form onsubmit="prosseguirCriarNiveis(event)">`
-    for (let i = 1; i <= quantidade; i++){
+    for (let i = 1; i <= quantidadeQuestoes; i++){
         telaPerguntas.innerHTML += `
         <div class="pergunta-${i}">
         <span class="pergunta-topo " onclick="mudaCorpoDaPergunta(this)">
@@ -102,7 +113,7 @@ function renderizaTelaDeCriarPerguntas(quantidade){
                 <p>Pergunta ${i}</p>
                 <input type="text" minlength="20" class="pergunta"
                     placeholder="Texto da pergunta" required="required">
-                <input type="text" required="required" class="pergunta-fundo"
+                <input type="color" required="required" class="pergunta-fundo"
                     placeholder="Cor de fundo da pergunta">
 
                 <p>Resposta correta</p>
@@ -139,5 +150,61 @@ function prosseguirCriarNiveis(event){
 
     document.querySelector('.terceira-tela__segunda').classList.add('esconder')
     document.querySelector('.terceira-tela__terceira').classList.remove('esconder')
+
+    renderizarTelaDeCriarNiveis()
 }
+
+function mudaCorpoDoNivel(div){
+    console.log('div:::', div)
+    div.classList.toggle('esconder')
+    const pai = div.parentNode
+    console.log('pai', pai)
+    pai.querySelector('.nivel-corpo').classList.toggle('esconder')
+    
+}
+
+function renderizarTelaDeCriarNiveis(){
+    
+    const telaNiveis = document.querySelector('.niveis-quiz')
+    for (let i = 1; i <= criarQuantidadeNiveis; i++){
+        telaNiveis.innerHTML += `
+        <div class="nivel-${i}">
+        <span class="nivel-topo " onclick="mudaCorpoDoNivel(this)">
+            <p>Nível ${i}</p>
+            <ion-icon name="create-outline"></ion-icon>
+        </span>
+            <div class="nivel-corpo esconder" >
+                <p>Nível ${i}</p>
+                <input type="text" minlength="10" class="nivel"
+                    placeholder="Título do nível" required="required">
+                <input type="number" min="0" max="100" required="required" class="nivel-porcentagem"
+                    placeholder="% de acerto mínima">
+                <input type="url" required="required" class="nivel-img"
+                    placeholder="URL da imagem do nível">
+                <textarea type="text" required="required" class="nivel-descricao"
+                    placeholder="Descrição do nível">
+            </div>
+        </div>
+    `
+    }
+
+    telaNiveis.innerHTML += `
+    <div class="nivel-botao">
+    <button type="submit">Finalizar Quiz</button>
+    </div>
+    `
+}
+
+function prosseguirFinalizarQuiz(event){
+    event.preventDefault()
+
+    document.querySelector('.terceira-tela__terceira').classList.add('esconder')
+    document.querySelector('.terceira-tela__quarta').classList.remove('esconder')
+
+    enviarQuizAoServidor()
+}
+
+
+
+
 obterQuizzes()
