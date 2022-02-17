@@ -35,4 +35,8 @@ function criarQuiz(){
 
 }
 
+function mudaCorpoDaPergunta(pergunta_n){
+    console.log(pergunta_n)
+}
+
 obterQuizzes()

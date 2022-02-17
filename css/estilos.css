@@ -133,6 +133,93 @@ header{
     margin-right: 18px;
 }
 
+.terceira-tela{
+    margin-top: 106px;
+}
+
+.terceira-tela p{
+    font-weight: 700;
+    font-size: 20px;
+    margin-bottom: 14px;
+    margin-left: 18px;
+}
+
+.terceira-tela span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.informacoes-quiz{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 29px;
+}
+
+.quantidade-de-niveis-quiz{
+    width: 341px;
+    height: 46px;
+    margin-bottom: 9px;
+    border-radius: 5px;
+    margin-bottom: 53px;
+}
+
+.terceira-tela input::placeholder{
+    color: #BABABA;
+    font-weight: 400;
+    font-size: 19px;
+    font-style: italic;
+}
+
+.terceira-tela input{
+    width: 341px;
+    height: 46px;
+    margin-bottom: 9px;
+    border-radius: 5px;
+}
+
+.terceira-tela__primeira button, .terceira-tela__segunda button{
+    width: 325px;
+    height: 54px;
+    border-radius: 15px;
+    background-color: #EC362D;
+    font-weight: 400;
+    color: #FFFFFF;
+}
+
+.pergunta-corpo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 29px;
+}
+
+.pergunta-corpo p{
+    width: 360px;
+    margin-top: 28px;
+}
+
+.perguntas-quiz .pergunta-topo{
+    display: flex;
+    justify-content: space-between;
+    margin: 0px 17px;
+}
+
+.perguntas-quiz ion-icon{
+    font-size: 26px;
+    color: #000000;
+    margin-top: -10px;
+}
+
+.pergunta-botao{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 @media screen and (min-width: 1100px) {
 
     .primeira-tela{
@@ -173,5 +260,5 @@ header{
 }
 
 .esconder{
-    display: none;
+    display: none !important;
 }
