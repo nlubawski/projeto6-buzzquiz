@@ -63,15 +63,15 @@ function criarQuiz(){
 
 }
 
-//em construcao
-// function mudaCorpoDaPergunta(div){
-//     console.log('div:::', div)
-//     div.classList.toggle('esconder')
-//     const pai = div.parentNode
-//     console.log('pai', pai)
-//     pai.querySelector('.pergunta-corpo').classList.toggle('esconder')
+
+function mudaCorpoDaPergunta(div){
+    console.log('div:::', div)
+    div.classList.toggle('esconder')
+    const pai = div.parentNode
+    console.log('pai', pai)
+    pai.querySelector('.pergunta-corpo').classList.toggle('esconder')
     
-// }
+}
 
 function prosseguirCriarPerguntas(event){
     event.preventDefault()
@@ -83,16 +83,61 @@ function prosseguirCriarPerguntas(event){
 
     document.querySelector('.terceira-tela__primeira').classList.add('esconder')
     document.querySelector('.terceira-tela__segunda').classList.remove('esconder')
+
+    renderizaTelaDeCriarPerguntas(criarQuantidadeQuestoes)
 }
 
-//em construcao
-// function prosseguirCriarNiveis(event){
-//     event.preventDefault()
+function renderizaTelaDeCriarPerguntas(quantidade){
+    
+    const telaPerguntas = document.querySelector('.perguntas-quiz')
+    //telaPerguntas.innerHTML += `<form onsubmit="prosseguirCriarNiveis(event)">`
+    for (let i = 1; i <= quantidade; i++){
+        telaPerguntas.innerHTML += `
+        <div class="pergunta-${i}">
+        <span class="pergunta-topo " onclick="mudaCorpoDaPergunta(this)">
+            <p>Pergunta ${i}</p>
+            <ion-icon name="create-outline"></ion-icon>
+        </span>
+            <div class="pergunta-corpo esconder" >
+                <p>Pergunta ${i}</p>
+                <input type="text" minlength="20" class="pergunta"
+                    placeholder="Texto da pergunta" required="required">
+                <input type="text" required="required" class="pergunta-fundo"
+                    placeholder="Cor de fundo da pergunta">
 
-//     document.querySelector('.terceira-tela__segunda').classList.add('esconder')
-//     document.querySelector('.terceira-tela__terceira').classList.remove('esconder')
-// }
+                <p>Resposta correta</p>
+                <input type="text" required="required" class="resposta-correta"
+                    placeholder="Resposta correta">
+                <input type="url" required="required" class="resposta-correta-img"
+                    placeholder="URL da imagem">
 
+                <p>Respostas incorretas</p>
+                <input type="text" required="required" class="resposta-errada"
+                    placeholder="Resposta incorreta 1">
+                <input type="url" required="required" class="resposta-errada-img"
+                    placeholder="URL da imagem 1">
 
+                <input type="text" class="resposta-errada" placeholder="Resposta incorreta 2">
+                <input type="url" class="resposta-errada-img" placeholder="URL da imagem 2">
 
+                <input type="text" class="resposta-errada" placeholder="Resposta incorreta 3">
+                <input type="url" class="resposta-errada-img" placeholder="URL da imagem 3">
+            </div>
+        </div>
+    `
+    }
+
+    telaPerguntas.innerHTML += `
+    <div class="pergunta-botao">
+    <button type="submit">Prosseguir pra criar níveis</button>
+    </div>
+    `
+}
+
+function prosseguirCriarNiveis(event){
+    event.preventDefault()
+
+    document.querySelector('.terceira-tela__segunda').classList.add('esconder')
+    document.querySelector('.terceira-tela__terceira').classList.remove('esconder')
+}
 obterQuizzes()
