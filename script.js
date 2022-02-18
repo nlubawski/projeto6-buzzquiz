@@ -3,15 +3,13 @@ let criarImagem = null
 let criarQuantidadeQuestoes = null
 let criarQuantidadeNiveis = null
 let criarQuestions = []
+let perguntas = null
 const quizCriado = {
     title: null,
     image: null,
     questions : [],
-    levels: []
+    levels: [],
 }
-let perguntas = null
-
-
 
 function obterQuizzes(){
     const promisse = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes')
@@ -75,7 +73,7 @@ function mudaCorpoDaPergunta(div){
     console.log('div:::', div)
     div.classList.toggle('esconder')
     const pai = div.parentNode
-    console.log('pai', pai)
+    //console.log('pai', pai)
     pai.querySelector('.pergunta-corpo').classList.toggle('esconder')
     
 }
@@ -102,7 +100,6 @@ function prosseguirCriarPerguntas(event){
 function renderizaTelaDeCriarPerguntas(quantidadeQuestoes){
     
     const telaPerguntas = document.querySelector('.perguntas-quiz')
-    //telaPerguntas.innerHTML += `<form onsubmit="prosseguirCriarNiveis(event)">`
     for (let i = 1; i <= quantidadeQuestoes; i++){
         telaPerguntas.innerHTML += `
         <div class="pergunta-${i} perguntas">
@@ -197,14 +194,14 @@ function renderizarTelaDeCriarNiveis(){
     `
 }
 
-function prosseguirFinalizarQuiz(event){
+function prosseguirSeuQuizEstaPronto(event){
     event.preventDefault()
 
     document.querySelector('.terceira-tela__terceira').classList.add('esconder')
     document.querySelector('.terceira-tela__quarta').classList.remove('esconder')
 
     adicionarNiveisCriados()
-    enviarQuizAoServidor()
+    //enviarQuizAoServidor()
 }
 
 function adicionarPerguntasCriadas(){
@@ -212,7 +209,6 @@ function adicionarPerguntasCriadas(){
     console.log(perguntas)
 
     for(let i = 0; i < perguntas.length ;i++){
-
         let texto = perguntas[i].querySelector('.pergunta').value
         let cor = perguntas[i].querySelector('.pergunta-fundo').value
         
@@ -223,7 +219,7 @@ function adicionarPerguntasCriadas(){
         let respostaErrada1Imagem = perguntas[i].querySelector('.resposta-errada1-img').value
         
         let respostaErrada2 = perguntas[i].querySelector('.resposta-errada2').value
-        let respostaErrada2Imagem = perguntas[0].querySelector('.resposta-errada2-img').value
+        let respostaErrada2Imagem = perguntas[i].querySelector('.resposta-errada2-img').value
 
         let respostaErrada3 = perguntas[i].querySelector('.resposta-errada3').value
         let respostaErrada3Imagem = perguntas[i].querySelector('.resposta-errada3-img').value
@@ -249,16 +245,14 @@ function adicionarPerguntasCriadas(){
             isCorrectAnswer: false,
         } ]
         }
-
         quizCriado.questions.push(questoes)
     }
-    console.log('meu deus ', quizCriado.questions)
 }
-
 
 function adicionarNiveisCriados(){
     niveis = document.querySelectorAll('.niveis')
-    console.log(niveis)
+    console.log('niveis: ', niveis)
+    console.log('niveisTamanho: ', niveis.length)
 
     for(let i = 0; i < niveis.length ;i++){
 
@@ -266,21 +260,19 @@ function adicionarNiveisCriados(){
         let porcentagem = niveis[i].querySelector('.nivel-porcentagem').value
         
         let nivelImagem = niveis[i].querySelector('.nivel-img').value
-        let respostaCorretaImagem = perguntas[0].querySelector('.resposta-correta-img').value
-
         let nivelDescricao = niveis[i].querySelector('.nivel-descricao').value
     
-        let niveis = {
+        let niveisInserir = {
             title: texto,
 			image: nivelImagem,
 			ext: nivelDescricao,
 			minValue: porcentagem,
         }
-        quizCriado.levels.push(niveis)
-        console.log('meu deus ', quizCriado.levels)
-        console.log('quiz ', quizCriado )   
+        console.log('niveis a inserir ', niveisInserir)
+        console.log('indice ', i)
+        quizCriado.levels.push(niveisInserir)
+        console.log('indice ', i)
     }
-    console.log('meu deus ', quizCriado.levels)
     console.log('quiz ', quizCriado )   
 }
 
