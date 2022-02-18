@@ -117,15 +117,15 @@ function renderizaTelaDeCriarPerguntas(quantidadeQuestoes){
                     placeholder="URL da imagem">
 
                 <p>Respostas incorretas</p>
-                <input type="text" required="required" class="resposta-errada1"
+                <input type="text" minlength="1" required="required" class="resposta-errada1"
                     placeholder="Resposta incorreta 1">
                 <input type="url" required="required" class="resposta-errada1-img"
                     placeholder="URL da imagem 1">
 
-                <input type="text" class="resposta-errada2" placeholder="Resposta incorreta 2">
+                <input type="text" minlength="1" class="resposta-errada2" placeholder="Resposta incorreta 2">
                 <input type="url" class="resposta-errada2-img" placeholder="URL da imagem 2">
 
-                <input type="text" class="resposta-errada3" placeholder="Resposta incorreta 3">
+                <input type="text" minlength="1" class="resposta-errada3" placeholder="Resposta incorreta 3">
                 <input type="url" class="resposta-errada3-img" placeholder="URL da imagem 3">
             </div>
         </div>
@@ -159,7 +159,28 @@ function mudaCorpoDoNivel(div){
 function renderizarTelaDeCriarNiveis(){
     
     const telaNiveis = document.querySelector('.niveis-quiz')
-    for (let i = 1; i <= criarQuantidadeNiveis; i++){
+
+    telaNiveis.innerHTML += `
+    <div class="nivel-1 niveis">
+    <span class="nivel-topo " onclick="mudaCorpoDoNivel(this)">
+        <p>Nível 1</p>
+        <ion-icon name="create-outline"></ion-icon>
+    </span>
+        <div class="nivel-corpo esconder" >
+            <p>Nível 1</p>
+            <input type="text" minlength="10" class="nivel"
+                placeholder="Título do nível" required="required">
+            <input type="number" value=0 max="100" disabled="" required="required" class="nivel-porcentagem"
+                placeholder="% de acerto mínima">
+            <input type="url" required="required" class="nivel-img"
+                placeholder="URL da imagem do nível">
+            <textArea type="text" minlength="30" required="required" class="nivel-descricao"
+                placeholder="Descrição do nível">
+            </textArea>
+        </div>
+    </div>
+`
+    for (let i = 2; i <= criarQuantidadeNiveis; i++){
         telaNiveis.innerHTML += `
         <div class="nivel-${i} niveis">
         <span class="nivel-topo " onclick="mudaCorpoDoNivel(this)">
@@ -174,8 +195,9 @@ function renderizarTelaDeCriarNiveis(){
                     placeholder="% de acerto mínima">
                 <input type="url" required="required" class="nivel-img"
                     placeholder="URL da imagem do nível">
-                <input type="text" minlength="30" required="required" class="nivel-descricao"
+                <textArea type="text" minlength="30" required="required" class="nivel-descricao"
                     placeholder="Descrição do nível">
+                </textArea>
             </div>
         </div>
     `
@@ -275,6 +297,16 @@ function erroAoEnviarQuiz(erro){
 
 function finalizarQuiz(resposta){
     const telaFinal = document.querySelector('.terceira-tela__quarta')
+}
+
+function voltarPraHome(){
+    document.querySelector('.terceira-tela__quarta').classList.add('esconder')
+    document.querySelector('.primeira-tela').classList.remove('esconder')
+    document.querySelector('.ir-para-criacao').classList.remove('esconder')
+}
+
+function acessarQuizCriado(){
+    //usar funcao da tela 2 aqui
 }
 
 obterQuizzes()

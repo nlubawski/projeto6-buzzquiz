@@ -19,21 +19,21 @@
         <p>
     </header>
     <main>
-        <section class="ir-para-criacao" onclick="criarQuiz()">
+        <section class="ir-para-criacao esconder" onclick="criarQuiz()">
             <span>
                 <p>Você não criou nenhum quizz ainda :(</p>
             </span>
             <button onclick="criarQuiz()">Criar Quizz</button>
         </section>
-        <section class="primeira-tela">
+        <section class="primeira-tela esconder">
             <p>Todos os Quizes</p>
             <ul>
             </ul>
         </section>
         <section class="segunda-tela">
         </section>
-        <section class="terceira-tela esconder">
-            <div class="terceira-tela__primeira">
+        <section class="terceira-tela ">
+            <div class="terceira-tela__primeira ">
                 <span class="terceira__tela__topo">
                     <p>Comece pelo começo</p>
                 </span>
@@ -74,8 +74,8 @@
                 </span>
                 <div class="finalizado-quiz">
                 </div>
-                <button class="acessar-quiz">Acessar Quiz</button>
-                <button class="voltar-home">Voltar pra home</button>
+                <button onclick="acessarQuizCriado()" class="acessar-quiz">Acessar Quiz</button>
+                <button onclick="voltarPraHome()" class="voltar-home">Voltar pra home</button>
                 </form>
             </div>
         </section>

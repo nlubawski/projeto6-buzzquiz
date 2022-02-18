@@ -278,6 +278,21 @@ header{
     z-index: 2;
 }
 
+textarea::placeholder {
+    font-size: 19px;
+    font-style: italic;
+    color: #BABABA;
+}
+
+textarea {
+    padding: 13px;
+    width: 341px;
+    height: 177px;
+    border-radius: 5px;
+    resize: none;
+}
+
+
 @media screen and (min-width: 1100px) {
 
     .primeira-tela{
