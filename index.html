@@ -19,20 +19,65 @@
         <p>
     </header>
     <main>
-        <section class="ir-para-criacao" onclick="criarQuiz()">
+        <section class="ir-para-criacao esconder" onclick="criarQuiz()">
             <span>
                 <p>Você não criou nenhum quizz ainda :(</p>
             </span>
             <button onclick="criarQuiz()">Criar Quizz</button>
         </section>
-        <section class="primeira-tela">
+        <section class="primeira-tela esconder">
             <p>Todos os Quizes</p>
             <ul>
             </ul>
         </section>
         <section class="segunda-tela">
         </section>
-        <section class="terceira-tela">
+        <section class="terceira-tela ">
+            <div class="terceira-tela__primeira ">
+                <span class="terceira__tela__topo">
+                    <p>Comece pelo começo</p>
+                </span>
+                <form onsubmit="prosseguirCriarPerguntas(event)">
+                    <div class="informacoes-quiz">
+                        <input type="text" class="titulo-quiz" placeholder="Título do seu quizz" minlength="20"
+                            maxlength="65" required="required">
+                        <input type="url" required="required" class="img-quiz" placeholder="URL da imagem do seu quizz">
+                        <input type="number" min="3" required="required" class="quantidade-de-perguntas-quiz"
+                            placeholder="Quantidade de perguntas do quizz">
+                        <input type="number" min="2" required="required" class="quantidade-de-niveis-quiz"
+                            placeholder="Quantidade de níveis do quizz">
+                        <button type="submit">Prosseguir pra criar perguntas</button>
+                    </div>
+                </form>
+            </div>
+            <div class="terceira-tela__segunda esconder">
+                <span>
+                    <p>Crie suas perguntas</p>
+                </span>
+                <form onsubmit="prosseguirCriarNiveis(event)">
+                    <div class="perguntas-quiz">
+                    </div>
+                </form>
+            </div>
+            <div class="terceira-tela__terceira esconder">
+                <span>
+                    <p>Agora decida os níveis!</p>
+                </span>
+                <form onsubmit="prosseguirSeuQuizEstaPronto(event)">
+                    <div class="niveis-quiz">
+                    </div>
+                </form>
+            </div>
+            <div class="terceira-tela__quarta esconder">
+                <span>
+                    <p>Seu quiz está pronto!</p>
+                </span>
+                <div class="finalizado-quiz">
+                </div>
+                <button onclick="acessarQuizCriado()" class="acessar-quiz">Acessar Quiz</button>
+                <button onclick="voltarPraHome()" class="voltar-home">Voltar pra home</button>
+                </form>
+            </div>
         </section>
     </main>
 </body>
