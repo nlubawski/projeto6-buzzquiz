@@ -10,6 +10,7 @@ const quizCriado = {
     questions : [],
     levels: [],
 }
+idQuizCriado = null
 
 function obterQuizzes(){
     const promisse = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes')
@@ -367,6 +368,8 @@ function erroAoEnviarQuiz(erro){
 }
 
 function finalizarQuiz(resposta){
+    idQuizCriado = resposta.data.id
+    console.log('id ', idQuizCriado)
     const telaFinal = document.querySelector('.terceira-tela__quarta')
 }
 

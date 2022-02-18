@@ -202,7 +202,19 @@ header{
     height: 46px;
     margin-bottom: 9px;
     border-radius: 5px;
+    border: solid 1px #D1D1D1;
 }
+
+textarea {
+    padding: 13px;
+    width: 341px;
+    height: 177px;
+    border-radius: 5px;
+    resize: none;
+    border: solid 1px #D1D1D1;
+}
+
+
 
 .terceira-tela__primeira button, .terceira-tela__segunda button, .terceira-tela__terceira button{
     width: 325px;
