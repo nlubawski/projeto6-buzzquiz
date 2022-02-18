@@ -1,7 +1,11 @@
 
 *{
     box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
+}
+
+/* pequena modificação: não sei pq a fonte não estava sendo aplicada no header. por algum motivo ela funciona cquando colocada no html --apar na versão final* */
+html{
+    font-family: 'Roboto', sans-serif; 
 }
 
 /* tirei o borderradius do header,  no figma ele está sem   --apar na versão final*/ 
@@ -133,11 +137,17 @@ header{
     margin-right: 18px;
 }
 
+.segunda-tela{
+    position: relative;
+    width: 100%;
+    margin-top: 69px;
+}
+
 .cabecalho-quiz{
+    position: absolute;
     position: relative;
     width: 100%;
     height: 142px;
-    margin-top: 69px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -163,6 +173,93 @@ header{
     color: #FFFFFF;
     font-size: 19px;
     z-index: 2;
+}
+
+.perguntas{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 28px;
+    background-color:  #E5E5E5;;
+}
+
+.box-pergunta{
+    box-sizing: border-box;
+    padding: 18px;
+    margin-top: 28px;
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFFFFF;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+}
+
+.titulo-pergunta{
+    box-sizing: border-box;
+    padding: 20px 15px 15px 15px;
+    width: 100%;
+    margin-bottom: 13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFFFFF;
+    font-size: 19px;
+    font-weight: 700;
+    word-wrap: break-word;
+}
+
+.box-respostas{
+    box-sizing: border-box;
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1;
+}
+
+.box-resposta{
+    position: relative;
+    box-sizing: border-box;
+    max-width: 148px;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+}
+
+.imagem-resposta{
+    max-width: 163px;
+}
+
+.texto-resposta{
+    font-size: 13px;
+    font-weight: 700;
+    margin: 6px 0 12px 0;
+}
+
+.gradiente-branco{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #FFFFFF;
+    opacity: 0.7;
+    z-index: 2;
+}
+
+.texto-verde{
+    color: #009C22;
+}
+
+.texto-vermelho{
+    color: #FF0B0B;
+}
+
+.texto-preto{
+    color: #000000;
 }
 
 @media screen and (min-width: 1100px) {
@@ -201,6 +298,40 @@ header{
 
     .seus-quizzes ion-icon{
             margin-top: -10px;
+    }
+    .box-pergunta{
+        box-sizing: border-box;
+        padding: 18px;
+        margin-top: 28px;
+        width: 50%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: #FFFFFF;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+    }
+    .box-resposta{
+        box-sizing: border-box;
+        width: 330px;
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        
+    }
+    .box-respostas{
+        width: 100%;
+        height: fit-content;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+    
+    .imagem-resposta{
+        max-width: 330px;
     }
 }
 
