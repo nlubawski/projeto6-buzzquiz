@@ -202,6 +202,29 @@ header{
     color: #FFFFFF;
 }
 
+.terceira-tela__quarta{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.terceira-tela__quarta .acessar-quiz, .terceira-tela__quarta .voltar-home{
+    width: 221px;
+    height: 44px;
+    border-radius: 15px;
+    font-size: 18px;
+    background-color: #EC362D;
+    font-weight: 400;
+    color: #FFFFFF;
+    margin-bottom: 9px;
+}
+
+.terceira-tela__quarta .voltar-home{
+    color: #818181;
+    background-color: #E5E5E5;
+}
+
 .pergunta-corpo, .nivel-corpo{
     display: flex;
     justify-content: center;
