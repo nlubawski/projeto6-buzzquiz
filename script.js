@@ -248,17 +248,30 @@ function adicionarPerguntasCriadas(){
                 text: respostaErrada1,
                 image: respostaErrada1Imagem,
                 isCorrectAnswer: false,
-            }, {
-                text: respostaErrada2,
-                image: respostaErrada2Imagem,
-                isCorrectAnswer: false,
-            }, {
-                text: respostaErrada3,
-                image: respostaErrada3Imagem,
-                isCorrectAnswer: false,
-            } ]
+            }, ]
         }
-        quizCriado.questions.push(questoes)
+        
+        for (let i = 0; i < questoes.lenght; i++){
+            for (j = 2; j < 4  ;j++){
+                if (respostaErrada2 !== "" && respostaErrada2Imagem !== ""){
+                    questoes.answers.push({
+                        text: respostaErrada2,
+                        image: respostaErrada2Imagem,
+                        isCorrectAnswer: false,
+                    })
+                }
+                if (respostaErrada3 !== "" && respostaErrada3Imagem !== ""){
+                    questoes.answers.push({
+                        text: respostaErrada3,
+                        image: respostaErrada3Imagem,
+                        isCorrectAnswer: false,
+                    })
+                }
+            }
+        }
+        
+
+    quizCriado.questions.push(questoes)       
     }
 }
 
