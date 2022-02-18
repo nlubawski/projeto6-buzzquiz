@@ -170,7 +170,7 @@ function renderizarTelaDeCriarNiveis(){
     const telaNiveis = document.querySelector('.niveis-quiz')
     for (let i = 1; i <= criarQuantidadeNiveis; i++){
         telaNiveis.innerHTML += `
-        <div class="nivel-${i}">
+        <div class="nivel-${i} niveis">
         <span class="nivel-topo " onclick="mudaCorpoDoNivel(this)">
             <p>Nível ${i}</p>
             <ion-icon name="create-outline"></ion-icon>
@@ -203,6 +203,7 @@ function prosseguirFinalizarQuiz(event){
     document.querySelector('.terceira-tela__terceira').classList.add('esconder')
     document.querySelector('.terceira-tela__quarta').classList.remove('esconder')
 
+    adicionarNiveisCriados()
     enviarQuizAoServidor()
 }
 
@@ -212,20 +213,20 @@ function adicionarPerguntasCriadas(){
 
     for(let i = 0; i < perguntas.length ;i++){
 
-        let texto = perguntas[0].querySelector('.pergunta').value
-        let cor = perguntas[0].querySelector('.pergunta-fundo').value
+        let texto = perguntas[i].querySelector('.pergunta').value
+        let cor = perguntas[i].querySelector('.pergunta-fundo').value
         
-        let respostaCorreta = perguntas[0].querySelector('.resposta-correta').value
-        let respostaCorretaImagem = perguntas[0].querySelector('.resposta-correta-img').value
+        let respostaCorreta = perguntas[i].querySelector('.resposta-correta').value
+        let respostaCorretaImagem = perguntas[i].querySelector('.resposta-correta-img').value
 
-        let respostaErrada1 = perguntas[0].querySelector('.resposta-errada1').value
-        let respostaErrada1Imagem = perguntas[0].querySelector('.resposta-errada1-img').value
+        let respostaErrada1 = perguntas[i].querySelector('.resposta-errada1').value
+        let respostaErrada1Imagem = perguntas[i].querySelector('.resposta-errada1-img').value
         
-        let respostaErrada2 = perguntas[0].querySelector('.resposta-errada2').value
+        let respostaErrada2 = perguntas[i].querySelector('.resposta-errada2').value
         let respostaErrada2Imagem = perguntas[0].querySelector('.resposta-errada2-img').value
 
-        let respostaErrada3 = perguntas[0].querySelector('.resposta-errada3').value
-        let respostaErrada3Imagem = perguntas[0].querySelector('.resposta-errada3-img').value
+        let respostaErrada3 = perguntas[i].querySelector('.resposta-errada3').value
+        let respostaErrada3Imagem = perguntas[i].querySelector('.resposta-errada3-img').value
 
         let questoes = {
             title: respostaCorreta,
@@ -250,12 +251,37 @@ function adicionarPerguntasCriadas(){
         }
 
         quizCriado.questions.push(questoes)
-        console.log('meu deus ', quizCriado.questions)
-        
     }
+    console.log('meu deus ', quizCriado.questions)
 }
 
 
+function adicionarNiveisCriados(){
+    niveis = document.querySelectorAll('.niveis')
+    console.log(niveis)
 
+    for(let i = 0; i < niveis.length ;i++){
+
+        let texto = niveis[i].querySelector('.nivel').value
+        let porcentagem = niveis[i].querySelector('.nivel-porcentagem').value
+        
+        let nivelImagem = niveis[i].querySelector('.nivel-img').value
+        let respostaCorretaImagem = perguntas[0].querySelector('.resposta-correta-img').value
+
+        let nivelDescricao = niveis[i].querySelector('.nivel-descricao').value
+    
+        let niveis = {
+            title: texto,
+			image: nivelImagem,
+			ext: nivelDescricao,
+			minValue: porcentagem,
+        }
+        quizCriado.levels.push(niveis)
+        console.log('meu deus ', quizCriado.levels)
+        console.log('quiz ', quizCriado )   
+    }
+    console.log('meu deus ', quizCriado.levels)
+    console.log('quiz ', quizCriado )   
+}
 
 obterQuizzes()
