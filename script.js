@@ -98,12 +98,20 @@ function renderizaRespostas(respostas){
 }
 
 function comparador() { 
-	return Math.random() - 0.5; 
+	return Math.random() - 0.5
 }
 
 function  selecionaReposta(boxResposta){
-    boxResposta.style.zIndex = 3;
+    boxResposta.style.zIndex = 3
+    if (boxResposta.parentNode.parentNode.nextElementSibling !== null){
+        setTimeout(mostraProximaPergunta, 2000, boxResposta.parentNode.parentNode.nextElementSibling)
+    }
 }
+
+function mostraProximaPergunta(elemento){
+    elemento.scrollIntoView()
+}
+
 
 function selecionaBoxResposta(boxResposta){
     const filhosBoxResposta = boxResposta.querySelectorAll("div.gradiente-branco, spam");
