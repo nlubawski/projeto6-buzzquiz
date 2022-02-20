@@ -29,16 +29,47 @@ function obterQuizzes(){
 function renderizaQuizzes(resposta){
     document.querySelector(".tela-load").classList.add("esconder")
     const quizzes = resposta.data
+    const meusIds = JSON.parse(localStorage.idQuizzesDoUsuario)
     const lista = document.querySelector('.primeira-tela ul')
+    const listaMeusIds = document.querySelector('.meus-quizzes ul')
+    listaMeusIds.innerHTML = ''
     quizzes.forEach(element => {
-        lista.innerHTML += `<li> 
-        <span class="titulos"  onclick="abrirQuiz(${element.id})">
-        ${element.title}
-        </span> <span class="efeitos" onclick="abrirQuiz(${element.id})">
-        </span> <img src="${element.image}">
-        </li>`  
+
+        for(let i = 0; i < meusIds.length ;i++){
+
+            if (meusIds[i] === element.id){
+                listaMeusIds.innerHTML += `
+                <li> 
+                <span class="titulos"  onclick="abrirQuiz(${element.id})">
+                ${element.title}
+                </span>
+                </span> <span class="meu-quiz-editar"> 
+                <ion-icon name="create-outline"></ion-icon>
+                </span>
+                <span class="meu-quiz-apagar" onclick="apagarQuiz(${element.id})"> 
+                <ion-icon name="trash-outline"></ion-icon>
+                </span>
+                <span class="efeitos" onclick="abrirQuiz(${element.id})">
+                </span> <img src="${element.image}" >
+                </li>
+                `  
+            }else{
+                lista.innerHTML += `
+                <li> 
+                <span class="titulos"  onclick="abrirQuiz(${element.id})">
+                ${element.title}
+                </span> <span class="efeitos" onclick="abrirQuiz(${element.id})">
+                </span> <img src="${element.image}">
+                </li>
+                `  
+            }
+        }
     })
+    if (meusIds.lenght !== 0){
+        primeiraTelaComQuizCriado()
+    }
 }
+
 
 function erroAoObterQuizzes(){
     console.log("erro ao carregar quizzes")
@@ -438,13 +469,13 @@ function finalizarQuiz(resposta){
     `
     idQuizCriado = resposta.data.id
     quizzesFeitosPorUsuario.push(idQuizCriado)
-    salvaIdNoStorage()
+    salvaIdNoStorage(idQuizCriado)
 }
 
 function voltarPraHome(){
     document.querySelector('.terceira-tela__quarta').classList.add('esconder')
     document.querySelector('.primeira-tela').classList.remove('esconder')
-    document.querySelector('.ir-para-criacao').classList.remove('esconder')
+    primeiraTelaComQuizCriado()
     window.location.reload()
 }
 
@@ -456,9 +487,17 @@ function acessarQuizCriado(){
     promise.catch(erroAoObterQuiz)
 }
 
-function salvaIdNoStorage(){
-    const dadosSerializados = JSON.stringify(quizzesFeitosPorUsuario)
-    localStorage.setItem("idQuizzesDoUsuario", "dadosSerializados")
+function salvaIdNoStorage(id){
+    if(localStorage.length !== 0){
+        quizzesFeitosPorUsuario = JSON.parse(localStorage.idQuizzesDoUsuario)
+        quizzesFeitosPorUsuario.push(id)
+        const quizzesFeitosPorUsuarioSerializados = JSON.stringify(quizzesFeitosPorUsuario)
+        localStorage.setItem("idQuizzesDoUsuario", quizzesFeitosPorUsuarioSerializados)
+    }else{
+        quizzesFeitosPorUsuario.push(id)
+        const quizzesFeitosPorUsuarioSerializados = JSON.stringify(quizzesFeitosPorUsuario)
+        localStorage.setItem("idQuizzesDoUsuario", quizzesFeitosPorUsuarioSerializados)
+    }
 }
 
 obterQuizzes()
