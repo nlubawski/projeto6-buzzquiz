@@ -3,7 +3,6 @@
     box-sizing: border-box;
 }
 
-/* pequena modificação: não sei pq a fonte não estava sendo aplicada no header. por algum motivo ela funciona cquando colocada no html --apar na versão final* */
 html{
     font-family: 'Roboto', sans-serif; 
 }
@@ -22,8 +21,41 @@ header{
     position: fixed; 
     top: 0;
     right: 0;
-    z-index: 4;
+    z-index: 5;
 }
+
+.tela-load{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    margin-top: -69px;
+    background-color: #E5E5E5;
+    z-index: 4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.animacao-load {
+    /*animação retirada do site https://www.w3schools.com/*/
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #EC362D;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+  }
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 
 .ir-para-criacao{
     width: 100vw;

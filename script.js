@@ -21,11 +21,13 @@ let quizzesFeitosPorUsuario = []
 
 function obterQuizzes(){
     const promisse = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes')
+    document.querySelector(".tela-load").classList.remove("esconder")
     promisse.then(renderizaQuizzes)
     promisse.catch(erroAoObterQuizzes)
 }
 
 function renderizaQuizzes(resposta){
+    document.querySelector(".tela-load").classList.add("esconder")
     const quizzes = resposta.data
     const lista = document.querySelector('.primeira-tela ul')
     quizzes.forEach(element => {
@@ -38,7 +40,22 @@ function renderizaQuizzes(resposta){
     })
 }
 
+function erroAoObterQuizzes(){
+    console.log("erro ao carregar quizzes")
+}
+
+function abrirQuiz(id){
+    document.querySelector(".tela-load").classList.remove("esconder")
+    document.querySelector('.primeira-tela').classList.add('esconder')
+    document.querySelector('.ir-para-criacao').classList.add('esconder')
+    quizAtualId = id;
+    const promise = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${id}`)
+    promise.then(renderizaQuiz)
+    promise.catch(erroAoObterQuiz)
+}
+
 function renderizaQuiz(resposta){
+    document.querySelector(".tela-load").classList.add("esconder")
     const quiz = resposta.data
     const perguntas = quiz.questions
     numeroDeQuestoes = perguntas.length 
@@ -52,62 +69,6 @@ function renderizaQuiz(resposta){
     </div>
     <ul class="perguntas">${renderizaPerguntas(perguntas)}</ul>`
     
-}
-
-function erroAoObterQuizzes(){
-    console.log("erro ao carregar quizzes")
-}
-
-function abrirQuiz(id){
-    document.querySelector('.primeira-tela').classList.add('esconder')
-    document.querySelector('.ir-para-criacao').classList.add('esconder')
-    quizAtualId = id;
-    const promise = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${id}`)
-    promise.then(renderizaQuiz)
-    promise.catch(erroAoObterQuiz)
-}
-
-function renderizaQuizzes(resposta){
-    const quizzes = resposta.data
-    const meusIds = JSON.parse(localStorage.idQuizzesDoUsuario)
-    const lista = document.querySelector('.primeira-tela ul')
-    const listaMeusIds = document.querySelector('.meus-quizzes ul')
-    listaMeusIds.innerHTML = ''
-    quizzes.forEach(element => {
-        
-        for(let i = 0; i < meusIds.length ;i++){
-            
-            if (meusIds[i] === element.id){
-                listaMeusIds.innerHTML += `
-                <li> 
-                <span class="titulos"  onclick="abrirQuiz(${element.id})">
-                ${element.title}
-                </span>
-                </span> <span class="meu-quiz-editar"> 
-                <ion-icon name="create-outline"></ion-icon>
-                </span>
-                <span class="meu-quiz-apagar" onclick="apagarQuiz(${element.id})"> 
-                <ion-icon name="trash-outline"></ion-icon>
-                </span>
-                <span class="efeitos" onclick="abrirQuiz(${element.id})">
-                </span> <img src="${element.image}" >
-                </li>
-                `  
-            }else{
-                lista.innerHTML += `
-                <li> 
-                <span class="titulos"  onclick="abrirQuiz(${element.id})">
-                ${element.title}
-                </span> <span class="efeitos" onclick="abrirQuiz(${element.id})">
-                </span> <img src="${element.image}">
-                </li>
-                `  
-            }
-        }
-    })
-    if (meusIds.lenght !== 0){
-        primeiraTelaComQuizCriado()
-    }
 }
 
 function erroAoObterQuiz(){
@@ -201,7 +162,7 @@ function finalDoQuiz(){
     <button class="botao-reiniciar-quiz" onclick="limpaSegundaTela(); abrirQuiz(quizAtualId)">Reiniciar Quiz</button>
     <button class="voltar-home" onclick="limpaSegundaTela();  document.location.reload()">Voltar para home</button>
     `
-    document.querySelector(".imagem-level").scrollIntoView()
+    document.querySelector(".titulo-final").scrollIntoView()
 }
 
 function limpaSegundaTela(){
@@ -213,7 +174,6 @@ function limpaSegundaTela(){
     segundaTela.innerHTML = ""
     
 }
-
 
 function primeiraTelaComQuizCriado(){
     document.querySelector('.ir-para-criacao').classList.add('esconder')
@@ -429,6 +389,8 @@ function adicionarPerguntasCriadas(){
                 }
             }
         }
+        
+
     quizCriado.questions.push(questoes)       
     }
 }
@@ -455,6 +417,7 @@ function adicionarNiveisCriados(){
 }
 
 function enviarQuizAoServidor(){
+    document.querySelector(".tela-load").classList.remove("esconder")
     const promessa = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', quizCriado)
     promessa.then(finalizarQuiz)
     promessa.catch(erroAoEnviarQuiz)
@@ -467,40 +430,35 @@ function erroAoEnviarQuiz(erro){
 }
 
 function finalizarQuiz(resposta){
+    document.querySelector(".tela-load").classList.add("esconder")
     const telaFinalizar = document.querySelector('.terceira-tela__quarta')
     telaFinalizar.classList.remove('esconder')
     telaFinalizar.querySelector('.finalizado-quiz ul').innerHTML = `
     <li> <span class="efeitos"></span> <img src="${resposta.data.image}" onclick="acessarQuizCriado()" </li>
     `
     idQuizCriado = resposta.data.id
-    salvaIdNoStorage(idQuizCriado)
+    quizzesFeitosPorUsuario.push(idQuizCriado)
+    salvaIdNoStorage()
 }
 
 function voltarPraHome(){
     document.querySelector('.terceira-tela__quarta').classList.add('esconder')
     document.querySelector('.primeira-tela').classList.remove('esconder')
-    primeiraTelaComQuizCriado()
+    document.querySelector('.ir-para-criacao').classList.remove('esconder')
     window.location.reload()
 }
 
 function acessarQuizCriado(){
+    document.querySelector(".tela-load").classList.remove("esconder")
     document.querySelector('.terceira-tela__quarta').classList.add('esconder')
     const promise = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${idQuizCriado}`)
     promise.then(renderizaQuiz)
     promise.catch(erroAoObterQuiz)
 }
 
-function salvaIdNoStorage(id){
-    if(localStorage.length !== 0){
-        quizzesFeitosPorUsuario = JSON.parse(localStorage.idQuizzesDoUsuario)
-        quizzesFeitosPorUsuario.push(id)
-        const quizzesFeitosPorUsuarioSerializados = JSON.stringify(quizzesFeitosPorUsuario)
-        localStorage.setItem("idQuizzesDoUsuario", quizzesFeitosPorUsuarioSerializados)
-    }else{
-        quizzesFeitosPorUsuario.push(id)
-        const quizzesFeitosPorUsuarioSerializados = JSON.stringify(quizzesFeitosPorUsuario)
-        localStorage.setItem("idQuizzesDoUsuario", quizzesFeitosPorUsuarioSerializados)
-    }
+function salvaIdNoStorage(){
+    const dadosSerializados = JSON.stringify(quizzesFeitosPorUsuario)
+    localStorage.setItem("idQuizzesDoUsuario", "dadosSerializados")
 }
 
 obterQuizzes()
