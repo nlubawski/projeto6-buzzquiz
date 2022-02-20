@@ -322,7 +322,7 @@ function prosseguirSeuQuizEstaPronto(event){
     event.preventDefault()
 
     document.querySelector('.terceira-tela__terceira').classList.add('esconder')
-    document.querySelector('.terceira-tela__quarta').classList.remove('esconder')
+    //aqui vai tela de loading
 
     adicionarNiveisCriados()
 }
@@ -400,7 +400,6 @@ function adicionarNiveisCriados(){
 			minValue: porcentagem,
         }
         quizCriado.levels.push(niveisInserir)
-        console.log("quizCriado ==> ", quizCriado)
     }
     enviarQuizAoServidor() 
 }
@@ -412,14 +411,20 @@ function enviarQuizAoServidor(){
 }
 
 function erroAoEnviarQuiz(erro){
-    console.log('erro ', erro)
-    console.log('erro ', erro.response)
+    alert('ERRO ao criar quiz, tente novamente ... ')
+    voltarPraHome()
+    document.querySelector('.terceira-tela__primeira').classList.remove('esconder')
 }
 
 function finalizarQuiz(resposta){
+    const telaFinalizar = document.querySelector('.terceira-tela__quarta')
+    telaFinalizar.classList.remove('esconder')
+    telaFinalizar.querySelector('.finalizado-quiz ul').innerHTML = `
+    <li> <span class="efeitos"></span> <img src="${resposta.data.image}" onclick="acessarQuizCriado()" </li>
+    `
     idQuizCriado = resposta.data.id
+    //apagar esse console
     console.log('id ', idQuizCriado)
-    const telaFinal = document.querySelector('.terceira-tela__quarta')
 }
 
 function voltarPraHome(){
@@ -429,7 +434,10 @@ function voltarPraHome(){
 }
 
 function acessarQuizCriado(){
-    //usar funcao da tela 2 aqui
+    document.querySelector('.terceira-tela__quarta').classList.add('esconder')
+    const promise = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${idQuizCriado}`)
+    promise.then(renderizaQuiz)
+    promise.catch(erroAoObterQuiz)
 }
 
 obterQuizzes()
