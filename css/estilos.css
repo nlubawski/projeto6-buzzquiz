@@ -419,6 +419,28 @@ textarea {
     font-weight: 700;
 }
 
+.botao-reiniciar-quiz{
+    width: 260px;
+    height: 52px;
+    margin-top: 58px;
+    margin-bottom: 16px;
+    background-color: #EC362D;
+    color: #FFF5F4;
+    font-size: 18px;
+    border-radius: 15px;
+    border: none;
+}
+
+.voltar-home{
+    width: 260px;
+    height: 52px;
+    margin-bottom: 60px;
+    font-size: 18px;
+    border: none;
+    background-color:  #E5E5E5;
+    color:#818181;
+}
+
 textarea::placeholder {
     font-size: 19px;
     font-style: italic;

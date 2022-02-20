@@ -158,8 +158,21 @@ function finalDoQuiz(){
             <img src="${levelAlcansado.image}" class="imagem-level" alt="imagem do nivel final">
             <span class="texto-level">${levelAlcansado.text}</span>
         </div>
-    </section>`
+    </section>
+    <button class="botao-reiniciar-quiz" onclick="limpaSegundaTela(); abrirQuiz(quizAtualId)">Reiniciar Quiz</button>
+    <button class="voltar-home" onclick="limpaSegundaTela();  document.location.reload()">Voltar para home</button>
+    `
     document.querySelector(".imagem-level").scrollIntoView()
+ }
+
+ function limpaSegundaTela(){
+    levelsDeAcerto = []
+    numeroDeQuestoes = 0
+    questoesRespondidas = 0
+    questoesAcertadas = 0
+    const segundaTela = document.querySelector('.segunda-tela')
+    segundaTela.innerHTML = ""
+    
  }
 
 //vai ser chamada quando o usuário já tiver quizzes
