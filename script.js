@@ -431,8 +431,7 @@ function finalizarQuiz(resposta){
     <li> <span class="efeitos"></span> <img src="${resposta.data.image}" onclick="acessarQuizCriado()" </li>
     `
     idQuizCriado = resposta.data.id
-    quizzesFeitosPorUsuario.push(idQuizCriado)
-    salvaIdNoStorage()
+    salvaIdNoStorage(idQuizCriado)
 }
 
 function voltarPraHome(){
@@ -449,12 +448,17 @@ function acessarQuizCriado(){
     promise.catch(erroAoObterQuiz)
 }
 
-function salvaIdNoStorage(){
-    const dadosSerializados = JSON.stringify(quizzesFeitosPorUsuario)
-    localStorage.setItem("idQuizzesDoUsuario", "dadosSerializados")
+function salvaIdNoStorage(id){
+    if(localStorage.length !== 0){
+        quizzesFeitosPorUsuario = JSON.parse(localStorage.idQuizzesDoUsuario)
+        quizzesFeitosPorUsuario.push(id)
+        const quizzesFeitosPorUsuarioSerializados = JSON.stringify(quizzesFeitosPorUsuario)
+        localStorage.setItem("idQuizzesDoUsuario", quizzesFeitosPorUsuarioSerializados)
+    }else{
+        quizzesFeitosPorUsuario.push(id)
+        const quizzesFeitosPorUsuarioSerializados = JSON.stringify(quizzesFeitosPorUsuario)
+        localStorage.setItem("idQuizzesDoUsuario", quizzesFeitosPorUsuarioSerializados)
+    }
 }
-
-
-
 
 obterQuizzes()
