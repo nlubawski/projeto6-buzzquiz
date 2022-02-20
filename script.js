@@ -11,16 +11,12 @@ const quizCriado = {
     levels: [],
 }
 let idQuizCriado = null
-
-//variaveis para resposta do quiz
 let levelsDeAcerto = []
 let numeroDeQuestoes = 0
 let questoesRespondidas = 0
 let questoesAcertadas = 0
-
-//para reeiniciar quiz
 let quizAtualId 
-
+let quizzesFeitosPorUsuario = []
 
 function obterQuizzes(){
     const promisse = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes')
@@ -436,8 +432,8 @@ function finalizarQuiz(resposta){
     <li> <span class="efeitos"></span> <img src="${resposta.data.image}" onclick="acessarQuizCriado()" </li>
     `
     idQuizCriado = resposta.data.id
-    //apagar esse console
-    console.log('id ', idQuizCriado)
+    quizzesFeitosPorUsuario.push(idQuizCriado)
+    salvaIdNoStorage()
 }
 
 function voltarPraHome(){
@@ -451,6 +447,11 @@ function acessarQuizCriado(){
     const promise = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${idQuizCriado}`)
     promise.then(renderizaQuiz)
     promise.catch(erroAoObterQuiz)
+}
+
+function salvaIdNoStorage(){
+    const dadosSerializados = JSON.stringify(quizzesFeitosPorUsuario)
+    localStorage.setItem("idQuizzesDoUsuario", "dadosSerializados")
 }
 
 obterQuizzes()
