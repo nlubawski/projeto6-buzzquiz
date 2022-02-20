@@ -21,11 +21,13 @@ let quizzesFeitosPorUsuario = []
 
 function obterQuizzes(){
     const promisse = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes')
+    document.querySelector(".tela-load").classList.remove("esconder")
     promisse.then(renderizaQuizzes)
     promisse.catch(erroAoObterQuizzes)
 }
 
 function renderizaQuizzes(resposta){
+    document.querySelector(".tela-load").classList.add("esconder")
     const quizzes = resposta.data
     const lista = document.querySelector('.primeira-tela ul')
     quizzes.forEach(element => {
@@ -42,8 +44,8 @@ function erroAoObterQuizzes(){
     console.log("erro ao carregar quizzes")
 }
 
-//modifiquei a função abrirQuiz para receber com parametro o id do quiz que ela abrirá. A função renderizaQuizzes passa a passar como parametro o element.id para a função onClick das <li>  //apagar na versão final//
 function abrirQuiz(id){
+    document.querySelector(".tela-load").classList.remove("esconder")
     document.querySelector('.primeira-tela').classList.add('esconder')
     document.querySelector('.ir-para-criacao').classList.add('esconder')
     quizAtualId = id;
@@ -53,6 +55,7 @@ function abrirQuiz(id){
 }
 
 function renderizaQuiz(resposta){
+    document.querySelector(".tela-load").classList.add("esconder")
     const quiz = resposta.data
     const perguntas = quiz.questions
     numeroDeQuestoes = perguntas.length 
@@ -159,7 +162,7 @@ function finalDoQuiz(){
     <button class="botao-reiniciar-quiz" onclick="limpaSegundaTela(); abrirQuiz(quizAtualId)">Reiniciar Quiz</button>
     <button class="voltar-home" onclick="limpaSegundaTela();  document.location.reload()">Voltar para home</button>
     `
-    document.querySelector(".imagem-level").scrollIntoView()
+    document.querySelector(".titulo-final").scrollIntoView()
  }
 
  function limpaSegundaTela(){
@@ -185,7 +188,6 @@ function criarQuiz(){
     document.querySelector('.terceira-tela').classList.remove('esconder')
 
 }
-
 
 function mudaCorpoDaPergunta(div){
     div.classList.toggle('esconder')
@@ -415,6 +417,7 @@ function adicionarNiveisCriados(){
 }
 
 function enviarQuizAoServidor(){
+    document.querySelector(".tela-load").classList.remove("esconder")
     const promessa = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', quizCriado)
     promessa.then(finalizarQuiz)
     promessa.catch(erroAoEnviarQuiz)
@@ -427,6 +430,7 @@ function erroAoEnviarQuiz(erro){
 }
 
 function finalizarQuiz(resposta){
+    document.querySelector(".tela-load").classList.add("esconder")
     const telaFinalizar = document.querySelector('.terceira-tela__quarta')
     telaFinalizar.classList.remove('esconder')
     telaFinalizar.querySelector('.finalizado-quiz ul').innerHTML = `
@@ -445,6 +449,7 @@ function voltarPraHome(){
 }
 
 function acessarQuizCriado(){
+    document.querySelector(".tela-load").classList.remove("esconder")
     document.querySelector('.terceira-tela__quarta').classList.add('esconder')
     const promise = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${idQuizCriado}`)
     promise.then(renderizaQuiz)
@@ -460,3 +465,4 @@ function salvaIdNoStorage(){
 
 
 obterQuizzes()
+
