@@ -389,8 +389,6 @@ function adicionarPerguntasCriadas(){
                 }
             }
         }
-        
-
     quizCriado.questions.push(questoes)       
     }
 }
