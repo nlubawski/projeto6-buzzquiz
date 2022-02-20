@@ -336,6 +336,7 @@ textarea {
     font-size: 19px;
     font-weight: 700;
     word-wrap: break-word;
+    background-color: #EC362D;
 }
 
 .box-respostas{
@@ -389,6 +390,26 @@ textarea {
     color: #000000;
 }
 
+.titulo-imagem{
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.imagem-level{
+    width: 340px;
+}
+
+.texto-level{
+    width: 100%;
+    margin-top: 10px;
+    font-size: 17px;
+    font-weight: 700;
+}
 
 textarea::placeholder {
     font-size: 19px;
@@ -447,7 +468,7 @@ textarea {
         box-sizing: border-box;
         padding: 18px;
         margin-top: 28px;
-        width: 50%;
+        width: 60%;
         height: auto;
         display: flex;
         flex-direction: column;
@@ -475,7 +496,24 @@ textarea {
     }
     
     .imagem-resposta{
-        max-width: 330px;
+        width: 330px;
+    }
+
+    .titulo-imagem{
+        width: 100%;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: row;
+        justify-content:space-between;
+        align-items: flex-start;
+    }
+    .imagem-level{
+        margin-right: 20px;
+    }
+    .texto-level{
+        display: flex;
+        width: 100%;
+        justify-content: flex-start;
     }
 }
 

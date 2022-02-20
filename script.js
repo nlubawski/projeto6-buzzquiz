@@ -10,7 +10,17 @@ const quizCriado = {
     questions : [],
     levels: [],
 }
-idQuizCriado = null
+let idQuizCriado = null
+
+//variaveis para resposta do quiz
+let levelsDeAcerto = []
+let numeroDeQuestoes = 0
+let questoesRespondidas = 0
+let questoesAcertadas = 0
+
+//para reeiniciar quiz
+let quizAtualId 
+
 
 function obterQuizzes(){
     const promisse = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes')
@@ -39,6 +49,7 @@ function erroAoObterQuizzes(){
 function abrirQuiz(id){
     document.querySelector('.primeira-tela').classList.add('esconder')
     document.querySelector('.ir-para-criacao').classList.add('esconder')
+    quizAtualId = id;
     const promise = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${id}`)
     promise.then(renderizaQuiz)
     promise.catch(erroAoObterQuiz)
@@ -47,6 +58,8 @@ function abrirQuiz(id){
 function renderizaQuiz(resposta){
     const quiz = resposta.data
     const perguntas = quiz.questions
+    numeroDeQuestoes = perguntas.length 
+    levelsDeAcerto = quiz.levels
     const segundaTela = document.querySelector('.segunda-tela')
     segundaTela.innerHTML = `
     <div class="cabecalho-quiz">
@@ -82,13 +95,13 @@ function renderizaRespostas(respostas){
     respostas.forEach(resposta => {
         if (resposta.isCorrectAnswer){
             todasAsRespostas += `
-            <div class="box-resposta" onclick=" selecionaReposta(this); selecionaBoxResposta(this.parentNode); this.onclick=null">
+            <div class="box-resposta" onclick="  somaRepostaCerta(); selecionaReposta(this); selecionaBoxResposta(this.parentNode); this.onclick=null">
             <img src="${resposta.image}" class="imagem-resposta" alt="imagem de uma resposta">
             <spam class="texto-resposta texto-verde texto-preto">${resposta.text}</span>
             </div>`
         }else{
             todasAsRespostas += `
-            <div class="box-resposta" onclick=" selecionaReposta(this); selecionaBoxResposta(this.parentNode); this.onclick=null ">
+            <div class="box-resposta" onclick=" selecionaReposta(this); selecionaBoxResposta(this.parentNode); this.onclick=null">
             <img src="${resposta.image}" class="imagem-resposta" alt="imagem de uma resposta">
             <spam class="texto-resposta texto-vermelho texto-preto">${resposta.text}</span>
             </div>`
@@ -106,12 +119,20 @@ function  selecionaReposta(boxResposta){
     if (boxResposta.parentNode.parentNode.nextElementSibling !== null){
         setTimeout(mostraProximaPergunta, 2000, boxResposta.parentNode.parentNode.nextElementSibling)
     }
+    questoesRespondidas += 1
+
+    if (questoesRespondidas === numeroDeQuestoes){
+        setTimeout(finalDoQuiz, 2000)
+    }
+}
+
+function somaRepostaCerta(){
+    questoesAcertadas += 1
 }
 
 function mostraProximaPergunta(elemento){
     elemento.scrollIntoView()
 }
-
 
 function selecionaBoxResposta(boxResposta){
     const filhosBoxResposta = boxResposta.querySelectorAll("div.gradiente-branco, spam");
@@ -120,6 +141,26 @@ function selecionaBoxResposta(boxResposta){
         elemento.classList.remove("texto-preto")
     })
 }
+
+function finalDoQuiz(){
+    let porcentagemAcerto = Math.round((questoesAcertadas*100)/numeroDeQuestoes)
+    let levelAlcansado 
+    levelsDeAcerto.forEach(level => {
+        if (porcentagemAcerto >= level.minValue){
+            levelAlcansado = level
+        }
+    })
+    segundaTela = document.querySelector(".perguntas")
+    segundaTela.innerHTML += `
+    <section class='box-pergunta'>
+        <div class="titulo-final titulo-pergunta">${porcentagemAcerto}% de acerto: ${levelAlcansado.title}</div>
+        <div class="titulo-imagem">
+            <img src="${levelAlcansado.image}" class="imagem-level" alt="imagem do nivel final">
+            <span class="texto-level">${levelAlcansado.text}</span>
+        </div>
+    </section>`
+    document.querySelector(".imagem-level").scrollIntoView()
+ }
 
 //vai ser chamada quando o usuário já tiver quizzes
 function primeiraTelaComQuizCriado(){
