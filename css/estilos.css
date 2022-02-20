@@ -8,7 +8,6 @@ html{
     font-family: 'Roboto', sans-serif; 
 }
 
-/* tirei o borderradius do header,  no figma ele está sem   --apar na versão final*/ 
 header{
     height: 69px;
     width: 100%;
@@ -145,7 +144,6 @@ header{
     margin-right: 18px;
 }
 
- 
 .segunda-tela{
     position: relative;
     width: 100%;
@@ -222,8 +220,6 @@ textarea {
     border: solid 1px #D1D1D1;
 }
 
-
-
 .terceira-tela__primeira button, .terceira-tela__segunda button, .terceira-tela__terceira button{
     width: 325px;
     height: 54px;
@@ -231,6 +227,12 @@ textarea {
     background-color: #EC362D;
     font-weight: 400;
     color: #FFFFFF;
+}
+
+.perguntasCriar, .niveisCriar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .terceira-tela__quarta{
@@ -269,16 +271,25 @@ textarea {
     margin-top: 28px;
 }
 
-.perguntas-quiz .pergunta-topo, .niveis-quiz .nivel-topo{
+.perguntasCriar .pergunta-topo, .niveis-quiz .nivel-topo{
     display: flex;
     justify-content: space-between;
     margin: 0px 17px;
 }
 
-.perguntas-quiz ion-icon{
+.nivel-topo, .pergunta-topo{
+    width: 375px;
+    height: 74px;
+}
+
+.perguntasCriar .pergunta-corpo p{
+    justify-content: flex-start;
+}
+
+.perguntas-quiz ion-icon, .niveis-quiz{
     font-size: 26px;
     color: #000000;
-    margin-top: -10px;
+    margin-top: 10px;
 }
 
 .pergunta-botao, .nivel-botao{
@@ -315,8 +326,7 @@ textarea {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-bottom: 28px;
-    background-color:  #E5E5E5;;
+    background-color:  #FFFFFF;;
 }
 
 .box-pergunta{
@@ -430,10 +440,7 @@ textarea {
     width: 341px;
     height: 177px;
     border-radius: 5px;
-    resize: none;
 }
-
-
 
 @media screen and (min-width: 1100px) {
 
@@ -515,16 +522,37 @@ textarea {
         justify-content:space-between;
         align-items: flex-start;
     }
+
     .imagem-level{
         margin-right: 20px;
     }
+
     .texto-level{
         display: flex;
         width: 100%;
         justify-content: flex-start;
     }
+
+    .terceira-tela input{
+        width: 564px;
+        height: 46px;
+    }
+
+    .terceira-tela__primeira button, .terceira-tela__segunda button, .terceira-tela__terceira button{
+        width: 370px;
+        height: 54px;
+    }
+
+    .pergunta-corpo p, .nivel-corpo p {
+        width: 574px;
+    }
+
+    .nivel-topo, .pergunta-topo{
+        width: 590px;
+        height: 74px;
+    }
 }
 
 .esconder{
-    display: none;
+    display: none !important;
 }
