@@ -52,20 +52,47 @@ function abrirQuiz(id){
     promise.catch(erroAoObterQuiz)
 }
 
-function renderizaQuiz(resposta){
-    const quiz = resposta.data
-    const perguntas = quiz.questions
-    numeroDeQuestoes = perguntas.length 
-    levelsDeAcerto = quiz.levels
-    const segundaTela = document.querySelector('.segunda-tela')
-    segundaTela.innerHTML = `
-    <div class="cabecalho-quiz">
-    <div class="gradiente"></div>
-    <span class="titulo-cabecalho">${quiz.title}</span>
-    <img src="${quiz.image}" class="imagem-cabecalho" alt="imagem do cabeçalho-quizz">
-    </div>
-    <ul class="perguntas">${renderizaPerguntas(perguntas)}</ul>`
-    
+function renderizaQuizzes(resposta){
+    const quizzes = resposta.data
+    const meusIds = JSON.parse(localStorage.idQuizzesDoUsuario)
+    const lista = document.querySelector('.primeira-tela ul')
+    const listaMeusIds = document.querySelector('.meus-quizzes ul')
+    listaMeusIds.innerHTML = ''
+    quizzes.forEach(element => {
+        
+        for(let i = 0; i < meusIds.length ;i++){
+            
+            if (meusIds[i] === element.id){
+                listaMeusIds.innerHTML += `
+                <li> 
+                <span class="titulos"  onclick="abrirQuiz(${element.id})">
+                ${element.title}
+                </span>
+                </span> <span class="meu-quiz-editar"> 
+                <ion-icon name="create-outline"></ion-icon>
+                </span>
+                <span class="meu-quiz-apagar" onclick="apagarQuiz(${element.id})"> 
+                <ion-icon name="trash-outline"></ion-icon>
+                </span>
+                <span class="efeitos" onclick="abrirQuiz(${element.id})">
+                </span> <img src="${element.image}" >
+                </li>
+                `  
+            }else{
+                lista.innerHTML += `
+                <li> 
+                <span class="titulos"  onclick="abrirQuiz(${element.id})">
+                ${element.title}
+                </span> <span class="efeitos" onclick="abrirQuiz(${element.id})">
+                </span> <img src="${element.image}">
+                </li>
+                `  
+            }
+        }
+    })
+    if (meusIds.lenght !== 0){
+        primeiraTelaComQuizCriado()
+    }
 }
 
 function erroAoObterQuiz(){
