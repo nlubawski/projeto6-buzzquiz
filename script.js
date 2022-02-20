@@ -217,17 +217,17 @@ function limpaSegundaTela(){
 
 function primeiraTelaComQuizCriado(){
     document.querySelector('.ir-para-criacao').classList.add('esconder')
-    const primeiraTela = document.querySelector('.meus-quizzes')
-    //primeiraTela.innerHTML = `<div class="meus-quizzes-topo"><p>Todos os Quizes</p> <ion-icon name="add-circle" onclick="criarQuiz()"></ion-icon></div>`
+    const primeiraTelaMeus = document.querySelector('.meus-quizzes span')
+    primeiraTelaMeus.innerHTML = `<div class="meus-quizzes-topo"><p>Seus Quizes</p> <ion-icon name="add-circle" onclick="criarQuiz()"></ion-icon></div>`
 }
 
 function criarQuiz(){
     document.querySelector('.primeira-tela').classList.add('esconder')
+    document.querySelector('.meus-quizzes').classList.add('esconder')
     document.querySelector('.ir-para-criacao').classList.add('esconder')
     document.querySelector('.terceira-tela').classList.remove('esconder')
 
 }
-
 
 function mudaCorpoDaPergunta(div){
     div.classList.toggle('esconder')

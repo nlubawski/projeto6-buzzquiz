@@ -461,7 +461,7 @@ textarea {
     font-weight: 700;
     font-size: 20px;
     margin-bottom: 14px;
-    margin-left: 18px;
+    /* margin-left: 18px; */
 }
 
 .meus-quizzes ion-icon{
@@ -471,12 +471,21 @@ textarea {
     margin-top: -10px;
 }
 
+.meus-quizzes span{
+    display: flex;
+    justify-content: center;
+}
+
 .meus-quizzes-topo{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 375px;
 }
 
+.meus-quizzes-topo ion-icon{
+    margin-left: 18px;
+}
 
 .meus-quizzes {
     margin-top: 140px;
@@ -660,6 +669,19 @@ textarea {
     textarea {
         width: 564px;
         height: 177px;
+    }
+
+    .meus-quizzes-topo{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        
+    }
+
+    .meus-quizzes span{
+        display: flex;
+        justify-content: flex-start;
+        /* margin-left: 194px; */
     }
 }
 
