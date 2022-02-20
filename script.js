@@ -18,6 +18,7 @@ let questoesAcertadas = 0
 let quizAtualId 
 let quizzesFeitosPorUsuario = []
 
+
 function obterQuizzes(){
     const promisse = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes')
     promisse.then(renderizaQuizzes)
@@ -215,8 +216,8 @@ function renderizaTelaDeCriarPerguntas(quantidadeQuestoes){
     const telaPerguntas = document.querySelector('.perguntas-quiz')
     for (let i = 1; i <= quantidadeQuestoes; i++){
         telaPerguntas.innerHTML += `
-        <div class="pergunta-${i} perguntas">
-        <span class="pergunta-topo " onclick="mudaCorpoDaPergunta(this)">
+        <div class="pergunta-${i} perguntasCriar">
+        <span class="pergunta-topo" onclick="mudaCorpoDaPergunta(this)">
             <p>Pergunta ${i}</p>
             <ion-icon name="create-outline"></ion-icon>
         </span>
@@ -278,7 +279,7 @@ function renderizarTelaDeCriarNiveis(){
     const telaNiveis = document.querySelector('.niveis-quiz')
 
     telaNiveis.innerHTML += `
-    <div class="nivel-1 niveis">
+    <div class="nivel-1 niveisCriar">
     <span class="nivel-topo " onclick="mudaCorpoDoNivel(this)">
         <p>Nível 1</p>
         <ion-icon name="create-outline"></ion-icon>
@@ -299,7 +300,7 @@ function renderizarTelaDeCriarNiveis(){
 `
     for (let i = 2; i <= criarQuantidadeNiveis; i++){
         telaNiveis.innerHTML += `
-        <div class="nivel-${i} niveis">
+        <div class="nivel-${i} niveisCriar">
         <span class="nivel-topo " onclick="mudaCorpoDoNivel(this)">
             <p>Nível ${i}</p>
             <ion-icon name="create-outline"></ion-icon>
@@ -337,7 +338,7 @@ function prosseguirSeuQuizEstaPronto(event){
 }
 
 function adicionarPerguntasCriadas(){
-    perguntas = document.querySelectorAll('.perguntas')
+    perguntas = document.querySelectorAll('.perguntasCriar')
     for(let i = 0; i < perguntas.length ;i++){
         let texto = perguntas[i].querySelector('.pergunta').value
         let cor = perguntas[i].querySelector('.pergunta-fundo').value
@@ -393,7 +394,7 @@ function adicionarPerguntasCriadas(){
 }
 
 function adicionarNiveisCriados(){
-    niveis = document.querySelectorAll('.niveis')
+    niveis = document.querySelectorAll('.niveisCriar')
     for(let i = 0; i < niveis.length ;i++){
 
         let texto = niveis[i].querySelector('.nivel').value
@@ -440,6 +441,7 @@ function voltarPraHome(){
     document.querySelector('.terceira-tela__quarta').classList.add('esconder')
     document.querySelector('.primeira-tela').classList.remove('esconder')
     document.querySelector('.ir-para-criacao').classList.remove('esconder')
+    window.location.reload()
 }
 
 function acessarQuizCriado(){
@@ -453,5 +455,8 @@ function salvaIdNoStorage(){
     const dadosSerializados = JSON.stringify(quizzesFeitosPorUsuario)
     localStorage.setItem("idQuizzesDoUsuario", "dadosSerializados")
 }
+
+
+
 
 obterQuizzes()
