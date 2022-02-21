@@ -21,62 +21,75 @@ let quizzesFeitosPorUsuario = []
 
 function obterQuizzes(){
     const promisse = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes')
-    document.querySelector(".tela-load").classList.remove("esconder")
+    // document.querySelector(".tela-load").classList.remove("esconder")
     promisse.then(renderizaQuizzes)
     promisse.catch(erroAoObterQuizzes)
 }
 
 function renderizaQuizzes(resposta){
-    document.querySelector(".tela-load").classList.add("esconder")
+    // document.querySelector(".tela-load").classList.add("esconder")
     const quizzes = resposta.data
-    const meusIds = JSON.parse(localStorage.idQuizzesDoUsuario)
     const lista = document.querySelector('.primeira-tela ul')
     const listaMeusIds = document.querySelector('.meus-quizzes ul')
     listaMeusIds.innerHTML = ''
-    quizzes.forEach(element => {
+    if (localStorage.idQuizzesDoUsuario.length > 0){
 
-        for(let i = 0; i < meusIds.length ;i++){
+            const meusIds = JSON.parse(localStorage.idQuizzesDoUsuario)
+            quizzes.forEach(element => {
 
-            if (meusIds[i] === element.id){
-                listaMeusIds.innerHTML += `
-                <li> 
-                <span class="titulos"  onclick="abrirQuiz(${element.id})">
-                ${element.title}
-                </span>
-                </span> <span class="meu-quiz-editar"> 
-                <ion-icon name="create-outline"></ion-icon>
-                </span>
-                <span class="meu-quiz-apagar" onclick="apagarQuiz(${element.id})"> 
-                <ion-icon name="trash-outline"></ion-icon>
-                </span>
-                <span class="efeitos" onclick="abrirQuiz(${element.id})">
-                </span> <img src="${element.image}" >
-                </li>
-                `  
-            }else{
-                lista.innerHTML += `
-                <li> 
-                <span class="titulos"  onclick="abrirQuiz(${element.id})">
-                ${element.title}
-                </span> <span class="efeitos" onclick="abrirQuiz(${element.id})">
-                </span> <img src="${element.image}">
-                </li>
-                `  
-            }
-        }
+                for(let i = 0; i < meusIds.length ;i++){
+
+                    if (meusIds[i] === element.id){
+                        listaMeusIds.innerHTML += `
+                        <li> 
+                        <span class="titulos"  onclick="abrirQuiz(${element.id})">
+                        ${element.title}
+                        </span>
+                        </span> <span class="meu-quiz-editar"> 
+                        <ion-icon name="create-outline"></ion-icon>
+                        </span>
+                        <span class="meu-quiz-apagar" onclick="apagarQuiz(${element.id})"> 
+                        <ion-icon name="trash-outline"></ion-icon>
+                        </span>
+                        <span class="efeitos" onclick="abrirQuiz(${element.id})">
+                        </span> <img src="${element.image}" >
+                        </li>
+                        `  
+                    }else{
+                        lista.innerHTML += `
+                        <li> 
+                        <span class="titulos"  onclick="abrirQuiz(${element.id})">
+                        ${element.title}
+                        </span> <span class="efeitos" onclick="abrirQuiz(${element.id})">
+                        </span> <img src="${element.image}">
+                        </li>
+                        `  
+                    }
+                }
+                // if (meusIds.lenght !== 0){
+                //     primeiraTelaComQuizCriado()
+                // }
+            })
+    }else{
+        quizzes.forEach(element => {lista.innerHTML += `
+                        <li> 
+                        <span class="titulos"  onclick="abrirQuiz(${element.id})">
+                        ${element.title}
+                        </span> <span class="efeitos" onclick="abrirQuiz(${element.id})">
+                        </span> <img src="${element.image}">
+                        </li>
+                        `  
     })
-    if (meusIds.lenght !== 0){
-        primeiraTelaComQuizCriado()
-    }
+    
 }
-
+}
 
 function erroAoObterQuizzes(){
     console.log("erro ao carregar quizzes")
 }
 
 function abrirQuiz(id){
-    document.querySelector(".tela-load").classList.remove("esconder")
+    // document.querySelector(".tela-load").classList.remove("esconder")
     document.querySelector('.primeira-tela').classList.add('esconder')
     document.querySelector('.ir-para-criacao').classList.add('esconder')
     quizAtualId = id;
@@ -86,7 +99,7 @@ function abrirQuiz(id){
 }
 
 function renderizaQuiz(resposta){
-    document.querySelector(".tela-load").classList.add("esconder")
+    // document.querySelector(".tela-load").classList.add("esconder")
     const quiz = resposta.data
     const perguntas = quiz.questions
     numeroDeQuestoes = perguntas.length 
@@ -448,7 +461,7 @@ function adicionarNiveisCriados(){
 }
 
 function enviarQuizAoServidor(){
-    document.querySelector(".tela-load").classList.remove("esconder")
+    // document.querySelector(".tela-load").classList.remove("esconder")
     const promessa = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', quizCriado)
     promessa.then(finalizarQuiz)
     promessa.catch(erroAoEnviarQuiz)
@@ -461,7 +474,7 @@ function erroAoEnviarQuiz(erro){
 }
 
 function finalizarQuiz(resposta){
-    document.querySelector(".tela-load").classList.add("esconder")
+    // document.querySelector(".tela-load").classList.add("esconder")
     const telaFinalizar = document.querySelector('.terceira-tela__quarta')
     telaFinalizar.classList.remove('esconder')
     telaFinalizar.querySelector('.finalizado-quiz ul').innerHTML = `
@@ -480,7 +493,7 @@ function voltarPraHome(){
 }
 
 function acessarQuizCriado(){
-    document.querySelector(".tela-load").classList.remove("esconder")
+    // document.querySelector(".tela-load").classList.remove("esconder")
     document.querySelector('.terceira-tela__quarta').classList.add('esconder')
     const promise = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${idQuizCriado}`)
     promise.then(renderizaQuiz)
