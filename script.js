@@ -33,11 +33,10 @@ function renderizaQuizzes(resposta){
     const listaMeusIds = document.querySelector('.meus-quizzes ul')
     listaMeusIds.innerHTML = ''
     console.log('local', localStorage.idQuizzesDoUsuario)
-    console.log('local tamanho', localStorage.idQuizzesDoUsuario.length)
-    if (localStorage.idQuizzesDoUsuario.length > 0){
+    if (localStorage.length !== 0){
 
             const meusIds = JSON.parse(localStorage.idQuizzesDoUsuario)
-            console.log('meusIds ', meusIds)
+            document.querySelector('.meus-quizzes').classList.remove('esconder')
             quizzes.forEach(element => {
 
                 for(let i = 0; i < meusIds.length ;i++){
@@ -482,7 +481,6 @@ function finalizarQuiz(resposta){
     <li> <span class="efeitos"></span> <img src="${resposta.data.image}" onclick="acessarQuizCriado()" </li>
     `
     idQuizCriado = resposta.data.id
-    quizzesFeitosPorUsuario.push(idQuizCriado)
     console.log('idQuizCriado ', idQuizCriado)
     salvaIdNoStorage(idQuizCriado)
 }
@@ -492,6 +490,8 @@ function voltarPraHome(){
     document.querySelector('.primeira-tela').classList.remove('esconder')
     primeiraTelaComQuizCriado()
     window.location.reload()
+    document.querySelector('.meus-quizzes').classList.remove('esconder')
+    
 }
 
 function acessarQuizCriado(){
@@ -515,8 +515,9 @@ function salvaIdNoStorage(id){
     // }
 
     quizzesFeitosPorUsuario.push(id)
-        const quizzesSerializados = JSON.stringify(quizzesFeitosPorUsuario)
-        localStorage.setItem("idQuizzesDoUsuario", quizzesSerializados)
+    console.log(quizzesFeitosPorUsuario)
+    const quizzesSerializados = JSON.stringify(quizzesFeitosPorUsuario)
+    localStorage.setItem("idQuizzesDoUsuario", quizzesSerializados)
 }
 
 obterQuizzes()
