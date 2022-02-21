@@ -44,7 +44,7 @@ function renderizaQuizzes(resposta){
 
                     if (meusIds[i] === element.id){
                         listaMeusIds.innerHTML += `
-                        <li> 
+                        <li data-identifier="quizz-card"> 
                         <span class="titulos"  onclick="abrirQuiz(${element.id})">
                         ${element.title}
                         </span>
@@ -60,7 +60,7 @@ function renderizaQuizzes(resposta){
                         `  
                     }else{
                         lista.innerHTML += `
-                        <li> 
+                        <li data-identifier="quizz-card"> 
                         <span class="titulos"  onclick="abrirQuiz(${element.id})">
                         ${element.title}
                         </span> <span class="efeitos" onclick="abrirQuiz(${element.id})">
@@ -124,7 +124,7 @@ function renderizaPerguntas(perguntas){
     let todasAsPerguntas = ""
     perguntas.forEach(pergunta => {
         todasAsPerguntas +=`
-        <section class='box-pergunta'>
+        <section class='box-pergunta' data-identifier="question">
             <div class="titulo-pergunta" style="background-color:${pergunta.color};">${pergunta.title}</div>
             <div class="box-respostas">
                 <div class="gradiente-branco esconder"></div>
@@ -140,13 +140,13 @@ function renderizaRespostas(respostas){
     respostas.forEach(resposta => {
         if (resposta.isCorrectAnswer){
             todasAsRespostas += `
-            <div class="box-resposta" onclick="  somaRepostaCerta(); selecionaReposta(this); selecionaBoxResposta(this.parentNode); this.onclick=null">
+            <div class="box-resposta" data-identifier="answer" onclick="  somaRepostaCerta(); selecionaReposta(this); selecionaBoxResposta(this.parentNode); this.onclick=null">
             <img src="${resposta.image}" class="imagem-resposta" alt="imagem de uma resposta">
             <spam class="texto-resposta texto-verde texto-preto">${resposta.text}</span>
             </div>`
         }else{
             todasAsRespostas += `
-            <div class="box-resposta" onclick=" selecionaReposta(this); selecionaBoxResposta(this.parentNode); this.onclick=null">
+            <div class="box-resposta" data-identifier="answer" onclick=" selecionaReposta(this); selecionaBoxResposta(this.parentNode); this.onclick=null">
             <img src="${resposta.image}" class="imagem-resposta" alt="imagem de uma resposta">
             <spam class="texto-resposta texto-vermelho texto-preto">${resposta.text}</span>
             </div>`
@@ -197,7 +197,7 @@ function finalDoQuiz(){
     })
     segundaTela = document.querySelector(".perguntas")
     segundaTela.innerHTML += `
-    <section class='box-pergunta'>
+    <section class='box-pergunta' data-identifier="quizz-result">
         <div class="titulo-final titulo-pergunta">${porcentagemAcerto}% de acerto: ${levelAlcansado.title}</div>
         <div class="titulo-imagem">
             <img src="${levelAlcansado.image}" class="imagem-level" alt="imagem do nivel final">
@@ -223,7 +223,7 @@ function limpaSegundaTela(){
 function primeiraTelaComQuizCriado(){
     document.querySelector('.ir-para-criacao').classList.add('esconder')
     const primeiraTelaMeus = document.querySelector('.meus-quizzes span')
-    primeiraTelaMeus.innerHTML = `<div class="meus-quizzes-topo"><p>Seus Quizes</p> <ion-icon name="add-circle" onclick="criarQuiz()"></ion-icon></div>`
+    primeiraTelaMeus.innerHTML = `<div class="meus-quizzes-topo"><p>Seus Quizes</p> <ion-icon name="add-circle" onclick="criarQuiz() data-identifier="create-quizz""></ion-icon></div>`
 }
 
 function criarQuiz(){
@@ -264,11 +264,11 @@ function renderizaTelaDeCriarPerguntas(quantidadeQuestoes){
     for (let i = 1; i <= quantidadeQuestoes; i++){
         telaPerguntas.innerHTML += `
         <div class="pergunta-${i} perguntasCriar">
-        <span class="pergunta-topo" onclick="mudaCorpoDaPergunta(this)">
+        <span class="pergunta-topo" data-identifier="expand" onclick="mudaCorpoDaPergunta(this)">
             <p>Pergunta ${i}</p>
             <ion-icon name="create-outline"></ion-icon>
         </span>
-            <div class="pergunta-corpo esconder" >
+            <div class="pergunta-corpo esconder" data-identifier="question">
                 <p>Pergunta ${i}</p>
                 <input type="text" minlength="20" class="pergunta"
                     placeholder="Texto da pergunta" required="required">
@@ -327,11 +327,11 @@ function renderizarTelaDeCriarNiveis(){
 
     telaNiveis.innerHTML += `
     <div class="nivel-1 niveisCriar">
-    <span class="nivel-topo " onclick="mudaCorpoDoNivel(this)">
+    <span class="nivel-topo " data-identifier="expand" onclick="mudaCorpoDoNivel(this)">
         <p>Nível 1</p>
         <ion-icon name="create-outline"></ion-icon>
     </span>
-        <div class="nivel-corpo esconder" >
+        <div class="nivel-corpo esconder" data-identifier="level" >
             <p>Nível 1</p>
             <input type="text" minlength="10" class="nivel"
                 placeholder="Título do nível" required="required">
@@ -348,11 +348,11 @@ function renderizarTelaDeCriarNiveis(){
     for (let i = 2; i <= criarQuantidadeNiveis; i++){
         telaNiveis.innerHTML += `
         <div class="nivel-${i} niveisCriar">
-        <span class="nivel-topo " onclick="mudaCorpoDoNivel(this)">
+        <span class="nivel-topo " data-identifier="expand" onclick="mudaCorpoDoNivel(this)">
             <p>Nível ${i}</p>
             <ion-icon name="create-outline"></ion-icon>
         </span>
-            <div class="nivel-corpo esconder" >
+            <div class="nivel-corpo esconder" data-identifier="level" >
                 <p>Nível ${i}</p>
                 <input type="text" minlength="10" class="nivel"
                     placeholder="Título do nível" required="required">
