@@ -32,13 +32,19 @@ function renderizaQuizzes(resposta) {
     const quizzes = resposta.data
     const lista = document.querySelector('.primeira-tela ul')
     const listaMeusIds = document.querySelector('.meus-quizzes ul')
+    lista.innerHTML = ''
     listaMeusIds.innerHTML = ''
     console.log('local', localStorage.idQuizzesDoUsuario)
     if (localStorage.length !== 0) {
         const meusIds = JSON.parse(localStorage.idQuizzesDoUsuario)
+        console.log('meus ids ', meusIds)
+        console.log('meus ids ', meusIds[0])
+        console.log('meus ids ', meusIds[0].id)
         document.querySelector('.meus-quizzes').classList.remove('esconder')
         quizzes.forEach(element => {
+            console.log('elemento ', element.id)
             for (let i = 0; i < meusIds.length; i++) {
+                console.log('compara ', meusIds[i].id === element.id)
                 if (meusIds[i].id === element.id) {
                     listaMeusIds.innerHTML += `
                         <li> 
@@ -544,25 +550,30 @@ function apagarQuiz(id) {
         }
     })
 
-    //apagarDoLocalStorage(id)   
+    promise.then(() => {
+        apagarDoLocalStorage(id)
+        window.location.reload()
+    })
 }
 
-// function apagarDoLocalStorage(id){
-//     quizzesFeitosPorUsuario = JSON.parse(localStorage.idQuizzesDoUsuario)
-//     localStorage.removeItem("idQuizzesDoUsuario")
-//     quizzesFeitosPorUsuario.forEach(element => {
-//         console.log(element.id)
-//         if (element.id = id){
-//             let x = quizzesFeitosPorUsuario.pop(element.id)
-//             console.log(x)
-//         }
-//     })
-//     if (quizzesFeitosPorUsuario.length > 0){
-//         const quizzesFeitosPorUsuarioSerializados = JSON.stringify(quizzesFeitosPorUsuario)
-//         localStorage.setItem("idQuizzesDoUsuario", quizzesFeitosPorUsuarioSerializados)
-//     }
-
-
-// }
+function apagarDoLocalStorage(id){
+    quizzesFeitosPorUsuario = JSON.parse(localStorage.idQuizzesDoUsuario)
+    localStorage.removeItem("idQuizzesDoUsuario")
+    console.log('quero apagar ', id)
+    console.log(quizzesFeitosPorUsuario)
+    console.log(quizzesFeitosPorUsuario[0].id)
+    console.log(quizzesFeitosPorUsuario[1].id)
+    quizzesFeitosPorUsuario.forEach(element => {
+        console.log(element.id)
+        if (element.id = id){
+            let x = quizzesFeitosPorUsuario.splice(element,1)
+            console.log('removido pop', x)
+        }
+    })
+    if (quizzesFeitosPorUsuario.length > 0){
+        const quizzesFeitosPorUsuarioSerializados = JSON.stringify(quizzesFeitosPorUsuario)
+        localStorage.setItem("idQuizzesDoUsuario", quizzesFeitosPorUsuarioSerializados)
+    }
+}
 
 obterQuizzes()

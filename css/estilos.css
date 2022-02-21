@@ -481,11 +481,9 @@ textarea::placeholder {
 }
 
 textarea {
-    padding: 13px;
     width: 341px;
     height: 177px;
     border-radius: 5px;
-    resize: none;
     border: solid 1px #D1D1D1;
 }
 
