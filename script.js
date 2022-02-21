@@ -32,9 +32,12 @@ function renderizaQuizzes(resposta){
     const lista = document.querySelector('.primeira-tela ul')
     const listaMeusIds = document.querySelector('.meus-quizzes ul')
     listaMeusIds.innerHTML = ''
+    console.log('local', localStorage.idQuizzesDoUsuario)
+    console.log('local tamanho', localStorage.idQuizzesDoUsuario.length)
     if (localStorage.idQuizzesDoUsuario.length > 0){
 
             const meusIds = JSON.parse(localStorage.idQuizzesDoUsuario)
+            console.log('meusIds ', meusIds)
             quizzes.forEach(element => {
 
                 for(let i = 0; i < meusIds.length ;i++){
@@ -66,9 +69,7 @@ function renderizaQuizzes(resposta){
                         `  
                     }
                 }
-                // if (meusIds.lenght !== 0){
-                //     primeiraTelaComQuizCriado()
-                // }
+                primeiraTelaComQuizCriado()
             })
     }else{
         quizzes.forEach(element => {lista.innerHTML += `
@@ -482,6 +483,7 @@ function finalizarQuiz(resposta){
     `
     idQuizCriado = resposta.data.id
     quizzesFeitosPorUsuario.push(idQuizCriado)
+    console.log('idQuizCriado ', idQuizCriado)
     salvaIdNoStorage(idQuizCriado)
 }
 
@@ -501,16 +503,20 @@ function acessarQuizCriado(){
 }
 
 function salvaIdNoStorage(id){
-    if(localStorage.length !== 0){
-        quizzesFeitosPorUsuario = JSON.parse(localStorage.idQuizzesDoUsuario)
-        quizzesFeitosPorUsuario.push(id)
-        const quizzesFeitosPorUsuarioSerializados = JSON.stringify(quizzesFeitosPorUsuario)
-        localStorage.setItem("idQuizzesDoUsuario", quizzesFeitosPorUsuarioSerializados)
-    }else{
-        quizzesFeitosPorUsuario.push(id)
-        const quizzesFeitosPorUsuarioSerializados = JSON.stringify(quizzesFeitosPorUsuario)
-        localStorage.setItem("idQuizzesDoUsuario", quizzesFeitosPorUsuarioSerializados)
-    }
+    // if(localStorage.length !== 0){
+    //     quizzesFeitosPorUsuario = JSON.parse(localStorage.idQuizzesDoUsuario)
+    //     quizzesFeitosPorUsuario.push(id)
+    //     const quizzesFeitosPorUsuarioSerializados = JSON.stringify(quizzesFeitosPorUsuario)
+    //     localStorage.setItem("idQuizzesDoUsuario", quizzesFeitosPorUsuarioSerializados)
+    // }else{
+    //     quizzesFeitosPorUsuario.push(id)
+    //     const quizzesFeitosPorUsuarioSerializados = JSON.stringify(quizzesFeitosPorUsuario)
+    //     localStorage.setItem("idQuizzesDoUsuario", quizzesFeitosPorUsuarioSerializados)
+    // }
+
+    quizzesFeitosPorUsuario.push(id)
+        const quizzesSerializados = JSON.stringify(quizzesFeitosPorUsuario)
+        localStorage.setItem("idQuizzesDoUsuario", quizzesSerializados)
 }
 
 obterQuizzes()
