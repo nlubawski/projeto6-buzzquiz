@@ -517,24 +517,28 @@ function salvaIdNoStorage(id, chave) {
 }
 
 function apagarQuiz(id) {
-    let chave = null
-    let i = 0
-    quizzesFeitosPorUsuario = JSON.parse(localStorage.idQuizzesDoUsuario)
-    while (chave === null) {
-        if (quizzesFeitosPorUsuario[i].id === id) {
-            chave = quizzesFeitosPorUsuario[i].key
+    let confirmar = prompt('quer mesmo apagar? se quer digite sim   ')
+    confirmar = confirmar.toLowerCase()
+    if (confirmar === 'sim'){
+        let chave = null
+        let i = 0
+        quizzesFeitosPorUsuario = JSON.parse(localStorage.idQuizzesDoUsuario)
+        while (chave === null) {
+            if (quizzesFeitosPorUsuario[i].id === id) {
+                chave = quizzesFeitosPorUsuario[i].key
+            }
+            i++
         }
-        i++
+        const promise = axios.delete(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${id}`, {
+            headers: {
+                "Secret-Key": chave
+            }
+        })
+        promise.then(() => {
+            apagarDoLocalStorage(id)
+            window.location.reload()
+        })
     }
-    const promise = axios.delete(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${id}`, {
-        headers: {
-            "Secret-Key": chave
-        }
-    })
-    promise.then(() => {
-        apagarDoLocalStorage(id)
-        window.location.reload()
-    })
 }
 
 function apagarDoLocalStorage(id){
