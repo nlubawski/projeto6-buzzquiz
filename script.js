@@ -11,6 +11,7 @@ const quizCriado = {
     levels: [],
 }
 let idQuizCriado = null
+let chaveQuizCriado = null
 let levelsDeAcerto = []
 let numeroDeQuestoes = 0
 let questoesRespondidas = 0
@@ -41,20 +42,21 @@ function renderizaQuizzes(resposta){
 
                 for(let i = 0; i < meusIds.length ;i++){
 
-                    if (meusIds[i] === element.id){
+                    if (meusIds[i].id === element.id){
                         listaMeusIds.innerHTML += `
                         <li> 
-                        <span class="titulos"  onclick="abrirQuiz(${element.id})">
-                        ${element.title}
-                        </span>
-                        </span> <span class="meu-quiz-editar"> 
-                        <ion-icon name="create-outline"></ion-icon>
-                        </span>
-                        <span class="meu-quiz-apagar" onclick="apagarQuiz(${element.id})"> 
-                        <ion-icon name="trash-outline"></ion-icon>
-                        </span>
-                        <span class="efeitos" onclick="abrirQuiz(${element.id})">
-                        </span> <img src="${element.image}" >
+                            <span class="titulos"  onclick="abrirQuiz(${element.id})">
+                                ${element.title}
+                            </span>
+                            </span>
+                            <span class="meu-quiz-editar"> 
+                                <ion-icon name="create-outline"></ion-icon>
+                            </span>
+                            <span class="meu-quiz-apagar" onclick="apagarQuiz(${element.id})"> 
+                                <ion-icon name="trash-outline"></ion-icon>
+                            </span>
+                            <span class="efeitos" onclick="abrirQuiz(${element.id})">
+                            </span> <img src="${element.image}" >
                         </li>
                         `  
                     }else{
@@ -474,6 +476,7 @@ function erroAoEnviarQuiz(erro){
 }
 
 function finalizarQuiz(resposta){
+    console.log(resposta.data)
     // document.querySelector(".tela-load").classList.add("esconder")
     const telaFinalizar = document.querySelector('.terceira-tela__quarta')
     telaFinalizar.classList.remove('esconder')
@@ -481,8 +484,10 @@ function finalizarQuiz(resposta){
     <li> <span class="efeitos"></span> <img src="${resposta.data.image}" onclick="acessarQuizCriado()" </li>
     `
     idQuizCriado = resposta.data.id
+    chaveQuizCriado = resposta.data.key
+    console.log('chave', chaveQuizCriado)
     console.log('idQuizCriado ', idQuizCriado)
-    salvaIdNoStorage(idQuizCriado)
+    salvaIdNoStorage(idQuizCriado, chaveQuizCriado)
 }
 
 function voltarPraHome(){
@@ -502,22 +507,47 @@ function acessarQuizCriado(){
     promise.catch(erroAoObterQuiz)
 }
 
-function salvaIdNoStorage(id){
-    // if(localStorage.length !== 0){
-    //     quizzesFeitosPorUsuario = JSON.parse(localStorage.idQuizzesDoUsuario)
-    //     quizzesFeitosPorUsuario.push(id)
-    //     const quizzesFeitosPorUsuarioSerializados = JSON.stringify(quizzesFeitosPorUsuario)
-    //     localStorage.setItem("idQuizzesDoUsuario", quizzesFeitosPorUsuarioSerializados)
-    // }else{
-    //     quizzesFeitosPorUsuario.push(id)
-    //     const quizzesFeitosPorUsuarioSerializados = JSON.stringify(quizzesFeitosPorUsuario)
-    //     localStorage.setItem("idQuizzesDoUsuario", quizzesFeitosPorUsuarioSerializados)
-    // }
+function salvaIdNoStorage(id, chave){
+    const idEchave = {
+        'id' : id,
+        'key' : chave
+    }
+    if(localStorage.length !== 0){
+        quizzesFeitosPorUsuario = JSON.parse(localStorage.idQuizzesDoUsuario)
+        quizzesFeitosPorUsuario.push(idEchave)
+        const quizzesFeitosPorUsuarioSerializados = JSON.stringify(quizzesFeitosPorUsuario)
+        localStorage.setItem("idQuizzesDoUsuario", quizzesFeitosPorUsuarioSerializados)
+    }else{
+        quizzesFeitosPorUsuario.push(idEchave)
+        const quizzesFeitosPorUsuarioSerializados = JSON.stringify(quizzesFeitosPorUsuario)
+        localStorage.setItem("idQuizzesDoUsuario", quizzesFeitosPorUsuarioSerializados)
+    }
+    
+    // quizzesFeitosPorUsuario.push(idEchave)
+    // console.log(quizzesFeitosPorUsuario)
+    // const quizzesSerializados = JSON.stringify(quizzesFeitosPorUsuario)
+    // localStorage.setItem("idQuizzesDoUsuario", quizzesSerializados)
+}
 
-    quizzesFeitosPorUsuario.push(id)
-    console.log(quizzesFeitosPorUsuario)
-    const quizzesSerializados = JSON.stringify(quizzesFeitosPorUsuario)
-    localStorage.setItem("idQuizzesDoUsuario", quizzesSerializados)
+function apagarQuiz(id){
+    console.log('id', id)
+    let chave = null
+    let i = 0
+    quizzesFeitosPorUsuario = JSON.parse(localStorage.idQuizzesDoUsuario)
+    while(chave === null){
+        if(quizzesFeitosPorUsuario[i].id === id){
+            chave = quizzesFeitosPorUsuario[i].key
+        }
+        i++
+    }
+
+    const promise = axios.delete( `https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${id}`, {
+        headers: {
+            "Secret-Key": chave
+        }
+    })
+
+   
 }
 
 obterQuizzes()
