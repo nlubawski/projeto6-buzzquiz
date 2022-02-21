@@ -100,7 +100,13 @@ header{
     font-weight: 700;
     font-size: 20px;
     margin-bottom: 14px;
-    /* margin-left: 18px; */
+}
+
+.primeira-tela__todos{
+    width: 375px;
+    display: flex;
+    justify-content: flex-start;
+    margin-left: calc((100vw / 2) - (375px / 2));
 }
 
 .seus-quizzes{
@@ -711,11 +717,17 @@ textarea {
     .meus-quizzes span{
         display: flex;
         justify-content: flex-start;
-        /* margin-left: 194px; */
     }
 
     .meus-quizzes span p{
         margin-left: 194px;
+    }
+
+    .primeira-tela__todos{
+        width: 375px;
+        display: flex;
+        justify-content: flex-start;
+        margin-left: 10px;
     }
 }
 

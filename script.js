@@ -34,17 +34,11 @@ function renderizaQuizzes(resposta) {
     const listaMeusIds = document.querySelector('.meus-quizzes ul')
     lista.innerHTML = ''
     listaMeusIds.innerHTML = ''
-    console.log('local', localStorage.idQuizzesDoUsuario)
     if (localStorage.length !== 0) {
         const meusIds = JSON.parse(localStorage.idQuizzesDoUsuario)
-        console.log('meus ids ', meusIds)
-        console.log('meus ids ', meusIds[0])
-        console.log('meus ids ', meusIds[0].id)
         document.querySelector('.meus-quizzes').classList.remove('esconder')
         quizzes.forEach(element => {
-            console.log('elemento ', element.id)
             for (let i = 0; i < meusIds.length; i++) {
-                console.log('compara ', meusIds[i].id === element.id)
                 if (meusIds[i].id === element.id) {
                     listaMeusIds.innerHTML += `
                         <li> 
@@ -227,7 +221,7 @@ function limpaSegundaTela() {
 function primeiraTelaComQuizCriado() {
     document.querySelector('.ir-para-criacao').classList.add('esconder')
     const primeiraTelaMeus = document.querySelector('.meus-quizzes span')
-    primeiraTelaMeus.innerHTML = `<div class="meus-quizzes-topo"><p>Seus Quizes</p> <ion-icon name="add-circle" onclick="criarQuiz() data-identifier="create-quizz""></ion-icon></div>`
+    primeiraTelaMeus.innerHTML = `<div class="meus-quizzes-topo"><p>Seus Quizes</p> <ion-icon name="add-circle" onclick="criarQuiz()" data-identifier="create-quizz"></ion-icon></div>`
 }
 
 function criarQuiz() {
@@ -478,7 +472,6 @@ function erroAoEnviarQuiz(erro) {
 }
 
 function finalizarQuiz(resposta) {
-    console.log(resposta.data)
     document.querySelector(".tela-load").classList.add("esconder")
     const telaFinalizar = document.querySelector('.terceira-tela__quarta')
     telaFinalizar.classList.remove('esconder')
@@ -487,8 +480,6 @@ function finalizarQuiz(resposta) {
     `
     idQuizCriado = resposta.data.id
     chaveQuizCriado = resposta.data.key
-    console.log('chave', chaveQuizCriado)
-    console.log('idQuizCriado ', idQuizCriado)
     salvaIdNoStorage(idQuizCriado, chaveQuizCriado)
 }
 
@@ -524,15 +515,9 @@ function salvaIdNoStorage(id, chave) {
         const quizzesFeitosPorUsuarioSerializados = JSON.stringify(quizzesFeitosPorUsuario)
         localStorage.setItem("idQuizzesDoUsuario", quizzesFeitosPorUsuarioSerializados)
     }
-
-    // quizzesFeitosPorUsuario.push(idEchave)
-    // console.log(quizzesFeitosPorUsuario)
-    // const quizzesSerializados = JSON.stringify(quizzesFeitosPorUsuario)
-    // localStorage.setItem("idQuizzesDoUsuario", quizzesSerializados)
 }
 
 function apagarQuiz(id) {
-    console.log('id', id)
     let chave = null
     let i = 0
     quizzesFeitosPorUsuario = JSON.parse(localStorage.idQuizzesDoUsuario)
@@ -542,13 +527,11 @@ function apagarQuiz(id) {
         }
         i++
     }
-
     const promise = axios.delete(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${id}`, {
         headers: {
             "Secret-Key": chave
         }
     })
-
     promise.then(() => {
         apagarDoLocalStorage(id)
         window.location.reload()
@@ -558,15 +541,9 @@ function apagarQuiz(id) {
 function apagarDoLocalStorage(id){
     quizzesFeitosPorUsuario = JSON.parse(localStorage.idQuizzesDoUsuario)
     localStorage.removeItem("idQuizzesDoUsuario")
-    console.log('quero apagar ', id)
-    console.log(quizzesFeitosPorUsuario)
-    console.log(quizzesFeitosPorUsuario[0].id)
-    console.log(quizzesFeitosPorUsuario[1].id)
     quizzesFeitosPorUsuario.forEach(element => {
-        console.log(element.id)
         if (element.id = id){
             let x = quizzesFeitosPorUsuario.splice(element,1)
-            console.log('removido pop', x)
         }
     })
     if (quizzesFeitosPorUsuario.length > 0){
@@ -574,5 +551,15 @@ function apagarDoLocalStorage(id){
         localStorage.setItem("idQuizzesDoUsuario", quizzesFeitosPorUsuarioSerializados)
     }
 }
+
+// function verificaQuizzesInativos(id){
+//     quizzesFeitosPorUsuario = JSON.parse(localStorage.idQuizzesDoUsuario)
+//     let contador = 0
+//     quizzesFeitosPorUsuario.forEach(element => {
+//         if (element.id = id){
+//             let x = quizzesFeitosPorUsuario.splice(element,1)
+//         }
+//     })
+// }
 
 obterQuizzes()
