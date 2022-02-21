@@ -337,8 +337,7 @@ function renderizarTelaDeCriarNiveis() {
             <input type="url" required="required" class="nivel-img"
                 placeholder="URL da imagem do nível">
             <textArea type="text" minlength="30" required="required" class="nivel-descricao"
-                placeholder="Descrição do nível">
-            </textArea>
+                placeholder="Descrição do nível"></textArea>
         </div>
     </div>
 `
@@ -358,8 +357,8 @@ function renderizarTelaDeCriarNiveis() {
                 <input type="url" required="required" class="nivel-img"
                     placeholder="URL da imagem do nível">
                 <textArea type="text" minlength="30" required="required" class="nivel-descricao"
-                    placeholder="Descrição do nível">
-                </textArea>
+                    placeholder="Descrição do nível"></textArea>
+                
             </div>
         </div>
     `
